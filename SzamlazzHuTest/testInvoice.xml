@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmlszamla xmlns="http://www.szamlazz.hu/xmlszamla" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.szamlazz.hu/xmlszamla https://www.szamlazz.hu/szamla/docs/xsds/agent/xmlszamla.xsd">
+    <beallitasok>
+        <!-- settings -->
+        <felhasznalo>teszt01</felhasznalo>
+        <!-- a Számlázz.hu user -->
+        <jelszo>teszt01</jelszo>
+        <!-- a Számlázz.hu’s user password -->
+        <szamlaagentkulcs>Please fill!</szamlaagentkulcs>
+        <eszamla>true</eszamla>
+        <!-- „true” in case you need to create an e-invoice -->
+        <szamlaLetoltes>true</szamlaLetoltes>
+        <!-- „true” in case you would like to get the 
+                                             PDF invoice in the response -->
+        <valaszVerzio>1</valaszVerzio>
+        <!-- 1: gives a simple text or PDF as answer. 
+                                             2: xml answer, in case you asked for the PDF as well,
+                                                it will be included in the XML with base64 coding.
+                                         -->
+        <aggregator></aggregator>
+        <!-- omit this tag -->
+    </beallitasok>
+    <fejlec>
+        <!-- header -->
+        <keltDatum>2020-01-20</keltDatum>
+        <!-- creating date, in this exact format -->
+        <teljesitesDatum>2020-01-20</teljesitesDatum>
+        <!-- payment date -->
+        <fizetesiHataridoDatum>2020-01-20</fizetesiHataridoDatum>
+        <!-- due date -->
+        <fizmod>átutalás</fizmod>
+        <!-- payment type: it can be seen in case you create the invoice 
+                                 from browser -->
+        <penznem>HUF</penznem>
+        <!-- currency: it can be seen in case you create the invoice 
+                                 from browser -->
+        <szamlaNyelve>hu</szamlaNyelve>
+        <!-- language of invoice, can  be: de, en, it, hu, fr, ro, sk, hr
+                                   -->
+        <megjegyzes>Invoce comment</megjegyzes>
+        <!-- comment of the invoice -->
+        <arfolyamBank>MNB</arfolyamBank>
+        <!-- name of bank: in case of invoice about other currency 
+                                          than HUF you have to display which bank’s exchange rates 
+                                          did we use to calculate VAT -->
+        <arfolyam>0.0</arfolyam>
+        <!-- exchange rate: in case of invoice about other currency 
+                                          than HUF you have to display which bank’s exchange rates 
+                                          did we use to calculate VAT -->
+        <rendelesSzam></rendelesSzam>
+        <!-- order number -->
+        <dijbekeroSzamlaszam></dijbekeroSzamlaszam>
+        <!-- reference to pro forma invoice number -->
+        <elolegszamla>false</elolegszamla>
+        <!-- deposit invoice -->
+        <vegszamla>false</vegszamla>
+        <!-- invoice (after a deposit invoice) -->
+        <helyesbitoszamla>false</helyesbitoszamla>
+        <!-- correction invoice -->
+        <helyesbitettSzamlaszam></helyesbitettSzamlaszam>
+        <!-- the number of the corrected invoice -->
+        <dijbekero>false</dijbekero>
+        <!-- proform invoice -->
+        <szamlaszamElotag></szamlaszamElotag>
+        <!-- One of the prefixes from the invoice pad menu  -->
+    </fejlec>
+    <elado>
+        <!-- Details of the merchant-->
+        <bank>BB</bank>
+        <!-- bank name -->
+        <bankszamlaszam>11111111-22222222-33333333</bankszamlaszam>
+        <!-- bank account -->
+        <emailReplyto></emailReplyto>
+        <!-- reply e-mail address -->
+        <emailTargy>Invoice notification</emailTargy>
+        <!-- e-mail subject -->
+        <emailSzoveg>mail text</emailSzoveg>
+        <!-- text of e-mail -->
+    </elado>
+    <vevo>
+        <!--Buyer details -->
+        <nev>Kovacs Bt.</nev>
+        <!-- name -->
+        <irsz>2030</irsz>
+        <!-- ZIP code -->
+        <telepules>Érd</telepules>
+        <!-- city -->
+        <cim>Tárnoki út 23.</cim>
+        <!-- address -->
+        <email>buyer@example.com</email>
+        <!-- e-mail address, if given, we will send the invoice to this mail address -->
+        <sendEmail>false</sendEmail>
+        <!-- should we send the e-mail to the customer (by email) -->
+        <adoszam>12345678-1-42</adoszam>
+        <!-- fiscal number/tax number -->
+        <postazasiNev>Kovács Bt. mailing name</postazasiNev>
+        <!--delivery name/postal name -->
+        <postazasiIrsz>2040</postazasiIrsz>
+        <!--delivery ZIP code/postal ZIP code -->
+        <postazasiTelepules>Budaörs</postazasiTelepules>
+        <!--delivery city/postal city -->
+        <postazasiCim>Szivárvány utca 8.</postazasiCim>
+        <!--delivery address/postal address -->
+        <azonosito>1234</azonosito>
+        <!-- identification -->
+        <telefonszam>Tel:+3630-555-55-55, Fax:+3623-555-555</telefonszam>
+        <!-- phone number -->
+        <megjegyzes>Call extension 214 from the reception</megjegyzes>
+        <!-- comment -->
+    </vevo>
+    <fuvarlevel>
+        <!-- waybill/confinement note, you do not need this: omit the entire tag -->
+        <uticel></uticel>
+        <futarSzolgalat></futarSzolgalat>
+    </fuvarlevel>
+    <tetelek>
+        <!-- items on invoice -->
+        <tetel>
+            <!-- item 1 -->
+            <megnevezes>Elado izé</megnevezes>
+            <!-- name -->
+            <mennyiseg>1.0</mennyiseg>
+            <!-- quantity -->
+            <mennyisegiEgyseg>db</mennyisegiEgyseg>
+            <!-- unit of quantity -->
+            <nettoEgysegar>10000</nettoEgysegar>
+            <!-- unit price -->
+            <afakulcs>27</afakulcs>
+            <!-- VAT rate -->
+            <nettoErtek>10000.0</nettoErtek>
+            <!-- net price -->
+            <afaErtek>2700.0</afaErtek>
+            <!-- VAT amount -->
+            <bruttoErtek>12700.0</bruttoErtek>
+            <!-- gross amount -->
+            <megjegyzes>lorem ipsum</megjegyzes>
+            <!-- comment for item -->
+        </tetel>
+        <tetel>
+            <!-- item 2, details are same as above -->
+            <megnevezes>Elado izé 2</megnevezes>
+            <mennyiseg>2.0</mennyiseg>
+            <mennyisegiEgyseg>db</mennyisegiEgyseg>
+            <nettoEgysegar>10000.0</nettoEgysegar>
+            <afakulcs>27</afakulcs>
+            <nettoErtek>20000.0</nettoErtek>
+            <afaErtek>5400.0</afaErtek>
+            <bruttoErtek>25400.0</bruttoErtek>
+            <megjegyzes>lorem ipsum 2</megjegyzes>
+        </tetel>
+    </tetelek>
+</xmlszamla>
