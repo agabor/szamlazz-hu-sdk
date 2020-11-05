@@ -1,5 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
+  <PropertyGroup>
+    <PackageId>szamlazz-hu-sdk</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Gabor Angyal</Authors>
+    <Company>Code Sharp Kft.</Company>
+    <Owner>Code Sharp Kft.</Owner>
+    <Description>SDK for the Számlázz.hu billing software</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIcon>logo.png</PackageIcon>
+    <Copyright>Copyright 2020 Code Sharp Kft.</Copyright>
+    <RepositoryUrl>https://github.com/codesharp-hu/szamlazz-hu-sdk.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType> 
+    <PackageProjectUrl>https://github.com/codesharp-hu/szamlazz-hu-sdk</PackageProjectUrl>
+    <PackageTags>Billing;Számlázz.hu</PackageTags>
+  </PropertyGroup>
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
@@ -10,5 +24,7 @@
   <ItemGroup>
     <None Update="requestxml.sbn" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
-
+  <ItemGroup>
+    <None Include="logo.png" Pack="true" PackagePath=""/>
+  </ItemGroup>
 </Project>
