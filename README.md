@@ -1,4 +1,4 @@
-# .Net Core SDK for Számlázz.hu
+# .Net Core SDK for Számlázz.hu [![Build Status](https://github.com/codesharp-hu/szamlazz-hu-sdk/workflows/Test/badge.svg?branch=master)](https://github.com/BootGen/BootGen/actions) [![Coverage Status](https://coveralls.io/repos/github/codesharp-hu/szamlazz-hu-sdk/badge.svg?branch=master)](https://coveralls.io/github/codesharp-hu/szamlazz-hu-sdk?branch=master)
 
 ## Minimal working example
 
