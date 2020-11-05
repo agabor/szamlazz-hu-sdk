@@ -1,0 +1,36 @@
+name: Test
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.301
+    - name: Install dependencies
+      run: dotnet restore
+      working-directory: ./SzamlazzHuTest
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+      working-directory: ./SzamlazzHuTest
+    - name: Test
+      run: dotnet test --no-restore --verbosity normal
+      working-directory: ./SzamlazzHuTest
+    - name: Coveralls
+      run: SZAMLAZZ_HU_KEY=${{ secrets.SZAMLAZZ_HU_KEY }} ; dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=lcov
+      working-directory: ./SzamlazzHuTest
+    - name: Coveralls Upload
+      uses: coverallsapp/github-action@v1.0.1
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: SzamlazzHuTest/coverage.info
