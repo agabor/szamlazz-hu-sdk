@@ -12,7 +12,7 @@
         <szamlaLetoltes>{{ request.settings.download_invoice }}</szamlaLetoltes>
         <!-- „true” in case you would like to get the 
                                              PDF invoice in the response -->
-        <valaszVerzio>1</valaszVerzio>
+        <valaszVerzio>2</valaszVerzio>
         <!-- 1: gives a simple text or PDF as answer. 
                                              2: xml answer, in case you asked for the PDF as well,
                                                 it will be included in the XML with base64 coding.

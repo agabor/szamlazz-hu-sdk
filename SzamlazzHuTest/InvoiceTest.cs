@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using System.Xml;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.XmlDiffPatch;
@@ -9,7 +10,7 @@ using szamlazzhu;
 namespace SzamlazzHuTest
 {
     [TestClass]
-    public class UnitTest1
+    public class InvoiceTest
     {
         [TestMethod]
         public void RenderXML()
@@ -19,6 +20,48 @@ namespace SzamlazzHuTest
             readerSettings.ValidationType = ValidationType.Schema;
             readerSettings.ValidationEventHandler += (s, e) => Assert.Fail(e.Message);
 
+            var request = CreateSampleRequest();
+
+            using (var xmlStream = XMLRenderer.RenderRequest(request))
+            {
+                var reader = XmlReader.Create(xmlStream, readerSettings);
+                var doc = new XmlDocument();
+                doc.Load(reader);
+                var originalDoc = new XmlDocument();
+                originalDoc.Load("testInvoice.xml");
+                var xmldiff = new XmlDiff(XmlDiffOptions.IgnoreChildOrder | 
+                                                    XmlDiffOptions.IgnoreNamespaces |
+                                                    XmlDiffOptions.IgnoreComments | 
+                                                    XmlDiffOptions.IgnorePrefixes);
+                using (var output = new MemoryStream())
+                {
+                    var diffgramWriter = XmlWriter.Create(output);
+                    bool bIdentical = xmldiff.Compare(originalDoc.DocumentElement, doc.DocumentElement, diffgramWriter);
+                    output.Position = 0;
+                    var diff = new StreamReader(output).ReadToEnd();
+                    Assert.IsTrue(bIdentical, diff);
+                }
+            }
+        }
+        
+        [TestMethod]
+        public async Task WebRequestTest()
+        {
+            var api = new SzamlazzHuApi();
+            var request = CreateSampleRequest();
+            request.Settings.User = "";
+            request.Settings.Password = "";
+            request.Settings.ApiKey = Environment.GetEnvironmentVariable("SZAMLAZZ_HU_KEY");
+            request.Header.InvoiceNumberPrefix = "NINCS";
+            request.Header.IssueDate = DateTime.Now;
+            request.Header.CompletionDate = DateTime.Now;
+            request.Header.DueDate = DateTime.Now;
+            var response = await api.CreateInvoice(request);
+            Assert.IsTrue(response.Success);
+        }
+
+        private CreateInvoiceRequest CreateSampleRequest()
+        {
             var request = new CreateInvoiceRequest();
             request.Settings.User = "teszt01";
             request.Settings.Password = "teszt01";
@@ -68,33 +111,7 @@ namespace SzamlazzHuTest
                     Comment = "lorem ipsum 2"
                 }
             };
-            string xmlString = XMLRenderer.RenderRequest(request);
-
-            var reader = XmlReader.Create(GenerateStreamFromString(xmlString), readerSettings);
-            var doc = new XmlDocument();
-            doc.Load(reader);
-            var originalDoc = new XmlDocument();
-            originalDoc.Load("testInvoice.xml");
-            var xmldiff = new XmlDiff(XmlDiffOptions.IgnoreChildOrder | 
-                                                XmlDiffOptions.IgnoreNamespaces |
-                                                XmlDiffOptions.IgnoreComments | 
-                                                XmlDiffOptions.IgnorePrefixes);
-            var output = new MemoryStream();
-            var diffgramWriter = XmlWriter.Create(output);
-            bool bIdentical = xmldiff.Compare(originalDoc.DocumentElement, doc.DocumentElement, diffgramWriter);
-            output.Position = 0;
-            var diff = new StreamReader(output).ReadToEnd();
-            Assert.IsTrue(bIdentical, diff);
-        }
-
-        public static Stream GenerateStreamFromString(string s)
-        {
-            var stream = new MemoryStream();
-            var writer = new StreamWriter(stream);
-            writer.Write(s);
-            writer.Flush();
-            stream.Position = 0;
-            return stream;
+            return request;
         }
     }
 }
