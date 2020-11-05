@@ -27,7 +27,7 @@ jobs:
       run: dotnet test --no-restore --verbosity normal
       working-directory: ./SzamlazzHuTest
     - name: Coveralls
-      run: SZAMLAZZ_HU_KEY=${{ secrets.SZAMLAZZ_HU_KEY }} ; dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=lcov
+      run: export SZAMLAZZ_HU_KEY=${{ secrets.SZAMLAZZ_HU_KEY }} ; dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=lcov
       working-directory: ./SzamlazzHuTest
     - name: Coveralls Upload
       uses: coverallsapp/github-action@v1.0.1
