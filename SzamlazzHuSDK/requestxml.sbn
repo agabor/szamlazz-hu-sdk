@@ -2,11 +2,11 @@
 <xmlszamla xmlns="http://www.szamlazz.hu/xmlszamla" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.szamlazz.hu/xmlszamla https://www.szamlazz.hu/szamla/docs/xsds/agent/xmlszamla.xsd">
     <beallitasok>
         <!-- settings -->
-        <felhasznalo>{{ request.settings.user }}</felhasznalo>
+        <felhasznalo>{{ request.authentication_data.user }}</felhasznalo>
         <!-- a Számlázz.hu user -->
-        <jelszo>{{ request.settings.password }}</jelszo>
+        <jelszo>{{ request.authentication_data.password }}</jelszo>
         <!-- a Számlázz.hu’s user password -->
-        <szamlaagentkulcs>{{ request.settings.api_key }}</szamlaagentkulcs>
+        <szamlaagentkulcs>{{ request.authentication_data.api_key }}</szamlaagentkulcs>
         <eszamla>{{ request.settings.electric }}</eszamla>
         <!-- „true” in case you need to create an e-invoice -->
         <szamlaLetoltes>{{ request.settings.download_invoice }}</szamlaLetoltes>

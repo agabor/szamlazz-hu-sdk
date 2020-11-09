@@ -6,7 +6,7 @@ using System.Linq;
 using System.Xml;
 using System.Threading.Tasks;
 
-namespace szamlazzhu
+namespace SzamlazzHu
 {
     public class CreateInvoiceResponse
     {

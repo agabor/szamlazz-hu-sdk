@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.XmlDiffPatch;
-using szamlazzhu;
+using SzamlazzHu;
 
 namespace SzamlazzHuTest
 {
@@ -49,9 +49,9 @@ namespace SzamlazzHuTest
         {
             var api = new SzamlazzHuApi();
             var request = CreateSampleRequest();
-            request.Settings.User = "";
-            request.Settings.Password = "";
-            request.Settings.ApiKey = Environment.GetEnvironmentVariable("SZAMLAZZ_HU_KEY");
+            request.AuthenticationData.User = "";
+            request.AuthenticationData.Password = "";
+            request.AuthenticationData.ApiKey = Environment.GetEnvironmentVariable("SZAMLAZZ_HU_KEY");
             request.Header.InvoiceNumberPrefix = "NINCS";
             request.Header.IssueDate = DateTime.Now;
             request.Header.CompletionDate = DateTime.Now;
@@ -63,9 +63,9 @@ namespace SzamlazzHuTest
         private CreateInvoiceRequest CreateSampleRequest()
         {
             var request = new CreateInvoiceRequest();
-            request.Settings.User = "teszt01";
-            request.Settings.Password = "teszt01";
-            request.Settings.ApiKey = "Please fill!";
+            request.AuthenticationData.User = "teszt01";
+            request.AuthenticationData.Password = "teszt01";
+            request.AuthenticationData.ApiKey = "Please fill!";
             request.Header.IssueDate = new DateTime(2020, 1, 20);
             request.Header.CompletionDate = new DateTime(2020, 1, 20);
             request.Header.DueDate = new DateTime(2020, 1, 20);
