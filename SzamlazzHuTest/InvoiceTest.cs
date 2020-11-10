@@ -49,15 +49,19 @@ namespace SzamlazzHuTest
         {
             var api = new SzamlazzHuApi();
             var request = CreateSampleRequest();
-            request.AuthenticationData.User = "";
-            request.AuthenticationData.Password = "";
-            request.AuthenticationData.ApiKey = Environment.GetEnvironmentVariable("SZAMLAZZ_HU_KEY");
+            string apiKey = Environment.GetEnvironmentVariable("SZAMLAZZ_HU_KEY");
+            //string apiKey = "jnvfp588x5s7spk4s588x5stzccgd588x5s6s86ya5";
+            request.AuthenticationData.ApiKey = apiKey;
             request.Header.InvoiceNumberPrefix = "NINCS";
             request.Header.IssueDate = DateTime.Now;
             request.Header.CompletionDate = DateTime.Now;
             request.Header.DueDate = DateTime.Now;
             var response = await api.CreateInvoice(request);
             Assert.IsTrue(response.Success);
+            var getInvoiceRequest = new GetInvoiceRequest();
+            getInvoiceRequest.AuthenticationData.ApiKey = apiKey;
+            getInvoiceRequest.InvoiceNumber = response.InvoiceNumber;
+            var getInvoiceResponse = await api.GetInvoice(getInvoiceRequest);
         }
 
         private CreateInvoiceRequest CreateSampleRequest()
@@ -74,16 +78,16 @@ namespace SzamlazzHuTest
             request.Seller.BankAccount = "11111111-22222222-33333333";
             request.Seller.EmailSubject = "Invoice notification";
             request.Seller.EmailText = "mail text";
-            request.Customer.CustomerContact.Name = "Kovacs Bt.";
-            request.Customer.CustomerContact.PostalCode = "2030";
-            request.Customer.CustomerContact.City = "Érd";
-            request.Customer.CustomerContact.Address = "Tárnoki út 23.";
+            request.Customer.CustomerAddress.Name = "Kovacs Bt.";
+            request.Customer.CustomerAddress.PostalCode = "2030";
+            request.Customer.CustomerAddress.City = "Érd";
+            request.Customer.CustomerAddress.StreetAddress = "Tárnoki út 23.";
             request.Customer.EmailAddress = "buyer@example.com";
             request.Customer.TaxNumber = "12345678-1-42";
-            request.Customer.PostalContact.Name = "Kovács Bt. mailing name";
-            request.Customer.PostalContact.PostalCode = "2040";
-            request.Customer.PostalContact.City = "Budaörs";
-            request.Customer.PostalContact.Address = "Szivárvány utca 8.";
+            request.Customer.PostalAddress.Name = "Kovács Bt. mailing name";
+            request.Customer.PostalAddress.PostalCode = "2040";
+            request.Customer.PostalAddress.City = "Budaörs";
+            request.Customer.PostalAddress.StreetAddress = "Szivárvány utca 8.";
             request.Customer.Identification = "1234";
             request.Customer.PhoneNumber = "Tel:+3630-555-55-55, Fax:+3623-555-555";
             request.Customer.Comment = "Call extension 214 from the reception";

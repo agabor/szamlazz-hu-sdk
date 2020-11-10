@@ -2,11 +2,15 @@
 <xmlszamla xmlns="http://www.szamlazz.hu/xmlszamla" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.szamlazz.hu/xmlszamla https://www.szamlazz.hu/szamla/docs/xsds/agent/xmlszamla.xsd">
     <beallitasok>
         <!-- settings -->
+        {{~ if request.authentication_data.user ~}}
         <felhasznalo>{{ request.authentication_data.user }}</felhasznalo>
-        <!-- a Számlázz.hu user -->
+        {{~ end ~}}
+        {{~ if request.authentication_data.password ~}}
         <jelszo>{{ request.authentication_data.password }}</jelszo>
-        <!-- a Számlázz.hu’s user password -->
+        {{~ end ~}}
+        {{~ if request.authentication_data.api_key ~}}
         <szamlaagentkulcs>{{ request.authentication_data.api_key }}</szamlaagentkulcs>
+        {{~ end ~}}
         <eszamla>{{ request.settings.electric }}</eszamla>
         <!-- „true” in case you need to create an e-invoice -->
         <szamlaLetoltes>{{ request.settings.download_invoice }}</szamlaLetoltes>
@@ -79,13 +83,13 @@
     </elado>
     <vevo>
         <!--Buyer details -->
-        <nev>{{ request.customer.customer_contact.name }}</nev>
+        <nev>{{ request.customer.customer_address.name }}</nev>
         <!-- name -->
-        <irsz>{{ request.customer.customer_contact.postal_code }}</irsz>
+        <irsz>{{ request.customer.customer_address.postal_code }}</irsz>
         <!-- ZIP code -->
-        <telepules>{{ request.customer.customer_contact.city }}</telepules>
+        <telepules>{{ request.customer.customer_address.city }}</telepules>
         <!-- city -->
-        <cim>{{ request.customer.customer_contact.address }}</cim>
+        <cim>{{ request.customer.customer_address.street_address }}</cim>
         <!-- address -->
         <email>{{ request.customer.email_address }}</email>
         <!-- e-mail address, if given, we will send the invoice to this mail address -->
@@ -93,13 +97,13 @@
         <!-- should we send the e-mail to the customer (by email) -->
         <adoszam>{{ request.customer.tax_number }}</adoszam>
         <!-- fiscal number/tax number -->
-        <postazasiNev>{{ request.customer.postal_contact.name }}</postazasiNev>
+        <postazasiNev>{{ request.customer.postal_address.name }}</postazasiNev>
         <!--delivery name/postal name -->
-        <postazasiIrsz>{{ request.customer.postal_contact.postal_code }}</postazasiIrsz>
+        <postazasiIrsz>{{ request.customer.postal_address.postal_code }}</postazasiIrsz>
         <!--delivery ZIP code/postal ZIP code -->
-        <postazasiTelepules>{{ request.customer.postal_contact.city }}</postazasiTelepules>
+        <postazasiTelepules>{{ request.customer.postal_address.city }}</postazasiTelepules>
         <!--delivery city/postal city -->
-        <postazasiCim>{{ request.customer.postal_contact.address }}</postazasiCim>
+        <postazasiCim>{{ request.customer.postal_address.street_address }}</postazasiCim>
         <!--delivery address/postal address -->
         <azonosito>{{ request.customer.identification }}</azonosito>
         <!-- identification -->

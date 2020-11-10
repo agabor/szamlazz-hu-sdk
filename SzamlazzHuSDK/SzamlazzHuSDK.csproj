@@ -22,7 +22,7 @@
     <PackageReference Include="Scriban" Version="2.1.4" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="requestxml.sbn" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="*.sbn" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
   <ItemGroup>
     <None Include="logo.png" Pack="true" PackagePath=""/>

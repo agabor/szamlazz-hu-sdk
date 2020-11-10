@@ -8,18 +8,6 @@ using System.Threading.Tasks;
 
 namespace SzamlazzHu
 {
-    public class CreateInvoiceResponse
-    {
-        public bool Success { get; set; }
-        public int ErrorCode { get; set; }
-        public string ErrorMessage { get; set; }
-        public string InvoiceNumber { get; set; }
-        public float NetPrice { get; set; }
-        public float GrossPrice { get; set; }
-        public float Receivable { get; set; }
-        public string CustomerAccountUrl { get; set; }
-        public byte[] InvoicePdf { get; set; }
-    }
 
     public class SzamlazzHuApi
     {
@@ -31,41 +19,56 @@ namespace SzamlazzHu
                 using (var requestStream = CompressXmlStream(xmlStream))
                 {
                     var doc = await HttpUploadXmlFile("https://www.szamlazz.hu/szamla/", requestStream.ToArray(), "action-xmlagentxmlfile");
-
+                    var root = doc.DocumentElement;
                     return new CreateInvoiceResponse
                     {
-                        Success = GetBool(doc, "sikeres"),
-                        ErrorCode = GetInt(doc, "hibakod"),
-                        ErrorMessage = GetString(doc, "hibauzenet"),
-                        InvoiceNumber = GetString(doc, "szamlaszam"),
-                        NetPrice = GetFloat(doc, "szamlanetto"),
-                        GrossPrice = GetFloat(doc, "szamlabrutto"),
-                        Receivable = GetFloat(doc, "kintlevoseg"),
-                        CustomerAccountUrl = GetString(doc, "vevoifiokurl"),
-                        InvoicePdf = Convert.FromBase64String(GetString(doc, "pdf"))
+                        Success = GetBool(root, "sikeres"),
+                        ErrorCode = GetInt(root, "hibakod"),
+                        ErrorMessage = GetString(root, "hibauzenet"),
+                        InvoiceNumber = GetString(root, "szamlaszam"),
+                        NetPrice = GetFloat(root, "szamlanetto"),
+                        GrossPrice = GetFloat(root, "szamlabrutto"),
+                        Receivable = GetFloat(root, "kintlevoseg"),
+                        CustomerAccountUrl = GetString(root, "vevoifiokurl"),
+                        InvoicePdf = request.Settings.DownloadInvoice ? Convert.FromBase64String(GetString(root, "pdf")) : null
                     };
                 }
             }
         }
 
-        private static float GetFloat(XmlDocument doc, string tagName)
+        public async Task<GetInvoiceResponse> GetInvoice(GetInvoiceRequest request)
+        {
+            using (var xmlStream = XMLRenderer.RenderRequest(request))
+            {
+                using (var requestStream = CompressXmlStream(xmlStream))
+                {
+                    var doc = await HttpUploadXmlFile("https://www.szamlazz.hu/szamla/", requestStream.ToArray(), "action-szamla_agent_xml");
+                    return new GetInvoiceResponse
+                    {
+                        InvoicePdf = request.Pdf ? Convert.FromBase64String(GetString(doc, "pdf")) : null
+                    };
+                }
+            }
+        }
+
+        private static float GetFloat(XmlNode doc, string tagName)
         {
             float.TryParse(GetString(doc, tagName), out float value);
             return value;
         }
-        private static int GetInt(XmlDocument doc, string tagName)
+        private static int GetInt(XmlNode doc, string tagName)
         {
             int.TryParse(GetString(doc, tagName), out int value);
             return value;
         }
-        private static bool GetBool(XmlDocument doc, string tagName)
+        private static bool GetBool(XmlNode doc, string tagName)
         {
             bool.TryParse(GetString(doc, tagName), out bool value);
             return value;
         }
-        private static string GetString(XmlDocument doc, string tagName)
+        private static string GetString(XmlNode doc, string tagName)
         {
-            return doc.GetElementsByTagName(tagName).Item(0)?.FirstChild.Value;
+            return doc[tagName]?.FirstChild.Value;
         }
 
         private static MemoryStream CompressXmlStream(MemoryStream xmlStream)
@@ -109,10 +112,15 @@ namespace SzamlazzHu
             {
                 using (var reader = new StreamReader(response.GetResponseStream()))
                 {
-                    var doc = new XmlDocument();
                     string xml = reader.ReadToEnd();
-                    doc.LoadXml(xml);
-                    return doc;
+                    try
+                    {
+                        var doc = new XmlDocument();
+                        doc.LoadXml(xml);
+                        return doc;
+                    } catch {
+                        return null;
+                    }
                 }
             }
         }
@@ -122,5 +130,18 @@ namespace SzamlazzHu
             byte[] textbytes = Encoding.UTF8.GetBytes(text);
             rs.Write(textbytes, 0, textbytes.Length);
         }
+    }
+
+    public class GetInvoiceRequest
+    {
+        public AuthenticationData AuthenticationData { get; set; } = new AuthenticationData();
+        public string InvoiceNumber { get; set; }
+        public string OrderNumber { get; set; }
+        public bool Pdf { get; set; }
+    }
+
+    public class GetInvoiceResponse
+    {
+        public byte[] InvoicePdf { get; internal set; }
     }
 }

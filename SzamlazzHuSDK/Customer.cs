@@ -2,8 +2,8 @@ namespace SzamlazzHu
 {
     public class Customer
     {
-        public Contact CustomerContact { get; set; } = new Contact();
-        public Contact PostalContact { get; set; } = new Contact();
+        public Address CustomerAddress { get; set; } = new Address();
+        public Address PostalAddress { get; set; } = new Address();
         public string EmailAddress { get; set; }
         public bool SendEmail { get; set; }
         public string TaxNumber { get; set; }
