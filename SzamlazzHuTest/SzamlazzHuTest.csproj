@@ -25,7 +25,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Update="xmlszamla.xsd" CopyToOutputDirectory="PreserveNewest" />
-    <None Update="testInvoice.xml" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="*.xml" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>

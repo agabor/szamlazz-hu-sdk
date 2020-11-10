@@ -28,7 +28,7 @@ namespace SzamlazzHuTest
                 var doc = new XmlDocument();
                 doc.Load(reader);
                 var originalDoc = new XmlDocument();
-                originalDoc.Load("testInvoice.xml");
+                originalDoc.Load("testCreateInvoiceRequest.xml");
                 var xmldiff = new XmlDiff(XmlDiffOptions.IgnoreChildOrder | 
                                                     XmlDiffOptions.IgnoreNamespaces |
                                                     XmlDiffOptions.IgnoreComments | 

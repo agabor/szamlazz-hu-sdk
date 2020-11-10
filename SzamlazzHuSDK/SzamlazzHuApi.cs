@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace SzamlazzHu
 {
-
     public class SzamlazzHuApi
     {
 
@@ -19,19 +18,8 @@ namespace SzamlazzHu
                 using (var requestStream = CompressXmlStream(xmlStream))
                 {
                     var doc = await HttpUploadXmlFile("https://www.szamlazz.hu/szamla/", requestStream.ToArray(), "action-xmlagentxmlfile");
-                    var root = doc.DocumentElement;
-                    return new CreateInvoiceResponse
-                    {
-                        Success = GetBool(root, "sikeres"),
-                        ErrorCode = GetInt(root, "hibakod"),
-                        ErrorMessage = GetString(root, "hibauzenet"),
-                        InvoiceNumber = GetString(root, "szamlaszam"),
-                        NetPrice = GetFloat(root, "szamlanetto"),
-                        GrossPrice = GetFloat(root, "szamlabrutto"),
-                        Receivable = GetFloat(root, "kintlevoseg"),
-                        CustomerAccountUrl = GetString(root, "vevoifiokurl"),
-                        InvoicePdf = request.Settings.DownloadInvoice ? Convert.FromBase64String(GetString(root, "pdf")) : null
-                    };
+                    File.WriteAllText("response1.xml", doc.OuterXml);
+                    return XmlParser.ParseCreateInvoiceResponse(doc);
                 }
             }
         }
@@ -43,32 +31,10 @@ namespace SzamlazzHu
                 using (var requestStream = CompressXmlStream(xmlStream))
                 {
                     var doc = await HttpUploadXmlFile("https://www.szamlazz.hu/szamla/", requestStream.ToArray(), "action-szamla_agent_xml");
-                    return new GetInvoiceResponse
-                    {
-                        InvoicePdf = request.Pdf ? Convert.FromBase64String(GetString(doc, "pdf")) : null
-                    };
+                    File.WriteAllText("response2.xml", doc.OuterXml);
+                    return XmlParser.ParseGetInvoiceResponse(doc);
                 }
             }
-        }
-
-        private static float GetFloat(XmlNode doc, string tagName)
-        {
-            float.TryParse(GetString(doc, tagName), out float value);
-            return value;
-        }
-        private static int GetInt(XmlNode doc, string tagName)
-        {
-            int.TryParse(GetString(doc, tagName), out int value);
-            return value;
-        }
-        private static bool GetBool(XmlNode doc, string tagName)
-        {
-            bool.TryParse(GetString(doc, tagName), out bool value);
-            return value;
-        }
-        private static string GetString(XmlNode doc, string tagName)
-        {
-            return doc[tagName]?.FirstChild.Value;
         }
 
         private static MemoryStream CompressXmlStream(MemoryStream xmlStream)

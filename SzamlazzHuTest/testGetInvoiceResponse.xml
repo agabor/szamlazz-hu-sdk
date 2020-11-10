@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<szamla xmlns="http://www.szamlazz.hu/szamla" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.szamlazz.hu/szamla szamla.xsd ">
+  <szallito>
+    <id>410426</id>
+    <nev>TESZT - Nincs Ilyen Kft</nev>
+    <cim>
+      <orszag>Magyarország</orszag>
+      <irsz>1111</irsz>
+      <telepules>Budapest</telepules>
+      <cim>Teszt utca 6</cim>
+    </cim>
+    <adoszam>00000000-2-02</adoszam>
+    <bank>
+      <nev>BB</nev>
+      <bankszamla>11111111-22222222-33333333</bankszamla>
+    </bank>
+  </szallito>
+  <alap>
+    <id>118587742</id>
+    <szamlaszam>E-NINCS-2020-25</szamlaszam>
+    <tipus>SZ</tipus>
+    <eszamla>3</eszamla>
+    <kelt>2020-11-10</kelt>
+    <telj>2020-11-10</telj>
+    <fizh>2020-11-10</fizh>
+    <fizmod>átutalás</fizmod>
+    <fizmodunified>átutalás</fizmodunified>
+    <keszpenz>false</keszpenz>
+    <nyelv>hu</nyelv>
+    <devizanem>HUF</devizanem>
+    <megjegyzes>Invoce comment</megjegyzes>
+    <penzforg>false</penzforg>
+    <kata>false</kata>
+    <email>buyer@example.com</email>
+    <teszt>true</teszt>
+  </alap>
+  <vevo>
+    <id>51277695</id>
+    <nev>Kovacs Bt.</nev>
+    <azonosito>1234</azonosito>
+    <cim>
+      <orszag>Magyarország</orszag>
+      <irsz>2030</irsz>
+      <telepules>Érd</telepules>
+      <cim>Tárnoki út 23.</cim>
+    </cim>
+    <email>buyer@example.com</email>
+    <adoszam>12345678-1-42</adoszam>
+    <lokacio>1</lokacio>
+    <fokonyv>
+      <vevo/>
+      <vevoazon/>
+      <folyamatostelj>false</folyamatostelj>
+    </fokonyv>
+  </vevo>
+  <tetelek>
+    <tetel>
+      <nev>Elado izé</nev>
+      <mennyiseg>1</mennyiseg>
+      <mennyisegiegyseg>db</mennyisegiegyseg>
+      <nettoegysegar>10000</nettoegysegar>
+      <afakulcs>27</afakulcs>
+      <netto>10000</netto>
+      <arresafaalap>0</arresafaalap>
+      <afa>2700</afa>
+      <brutto>12700</brutto>
+      <megjegyzes>lorem ipsum</megjegyzes>
+      <fokonyv>
+        <arbevetel/>
+        <afa/>
+        <gazdasagiesemeny/>
+        <gazdasagiesemenyafa/>
+        <elszdattol/>
+        <elszdatig/>
+      </fokonyv>
+    </tetel>
+    <tetel>
+      <nev>Elado izé 2</nev>
+      <mennyiseg>2</mennyiseg>
+      <mennyisegiegyseg>db</mennyisegiegyseg>
+      <nettoegysegar>10000</nettoegysegar>
+      <afakulcs>27</afakulcs>
+      <netto>20000</netto>
+      <arresafaalap>0</arresafaalap>
+      <afa>5400</afa>
+      <brutto>25400</brutto>
+      <megjegyzes>lorem ipsum 2</megjegyzes>
+      <fokonyv>
+        <arbevetel/>
+        <afa/>
+        <gazdasagiesemeny/>
+        <gazdasagiesemenyafa/>
+        <elszdattol/>
+        <elszdatig/>
+      </fokonyv>
+    </tetel>
+  </tetelek>
+  <osszegek>
+    <afakulcsossz>
+      <afakulcs>27</afakulcs>
+      <netto>30000</netto>
+      <afa>8100</afa>
+      <brutto>38100</brutto>
+    </afakulcsossz>
+    <totalossz>
+      <netto>30000</netto>
+      <afa>8100</afa>
+      <brutto>38100</brutto>
+    </totalossz>
+  </osszegek>
+</szamla>
