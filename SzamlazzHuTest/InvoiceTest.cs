@@ -50,6 +50,8 @@ namespace SzamlazzHuTest
             var doc = new XmlDocument();
             doc.Load("testGetInvoiceResponse.xml");
             var response = XmlParser.ParseGetInvoiceResponse(doc);
+            Assert.AreEqual(new DateTime(2020, 11, 10), response.InvoiceHeader.DueDate);
+            Assert.AreEqual("Kovacs Bt.", response.Customer.Name);
         }
         
         [TestMethod]
@@ -63,12 +65,50 @@ namespace SzamlazzHuTest
             request.Header.IssueDate = DateTime.Now;
             request.Header.CompletionDate = DateTime.Now;
             request.Header.DueDate = DateTime.Now;
+            request.Header.FeeCollection = true;
             var response = await api.CreateInvoice(request);
             Assert.IsTrue(response.Success);
             var getInvoiceRequest = new GetInvoiceRequest();
             getInvoiceRequest.AuthenticationData.ApiKey = apiKey;
             getInvoiceRequest.InvoiceNumber = response.InvoiceNumber;
             var getInvoiceResponse = await api.GetInvoice(getInvoiceRequest);
+            Assert.AreEqual(request.Seller.BankName, getInvoiceResponse.Seller.BankName);
+            Assert.AreEqual(request.Seller.BankAccount, getInvoiceResponse.Seller.BankAccount);
+            Assert.AreEqual(request.Header.Comment, getInvoiceResponse.InvoiceHeader.Comment);
+            Assert.AreEqual(request.Header.CompletionDate.Date, getInvoiceResponse.InvoiceHeader.CompletionDate.Date);
+            Assert.AreEqual(request.Header.Currency, getInvoiceResponse.InvoiceHeader.Currency);
+            Assert.AreEqual(request.Header.DueDate.Date, getInvoiceResponse.InvoiceHeader.DueDate.Date);
+            Assert.AreEqual(request.Header.ExchangeRate, getInvoiceResponse.InvoiceHeader.ExchangeRate);
+            Assert.AreEqual(request.Header.FeeCollection, getInvoiceResponse.InvoiceHeader.FeeCollection);
+            Assert.AreEqual(request.Header.InvoiceNumberPrefix, getInvoiceResponse.InvoiceHeader.InvoiceNumberPrefix);
+            Assert.AreEqual(request.Header.IssueDate.Date, getInvoiceResponse.InvoiceHeader.IssueDate.Date);
+            Assert.AreEqual(request.Header.Language, getInvoiceResponse.InvoiceHeader.Language);
+            Assert.AreEqual(request.Header.PaymentType, getInvoiceResponse.InvoiceHeader.PaymentType);
+            Assert.AreEqual(request.Customer.Name, getInvoiceResponse.Customer.Name);
+            Assert.AreEqual(request.Customer.CustomerAddress.Country, getInvoiceResponse.Customer.CustomerAddress.Country);
+            Assert.AreEqual(request.Customer.CustomerAddress.PostalCode, getInvoiceResponse.Customer.CustomerAddress.PostalCode);
+            Assert.AreEqual(request.Customer.CustomerAddress.City, getInvoiceResponse.Customer.CustomerAddress.City);
+            Assert.AreEqual(request.Customer.CustomerAddress.StreetAddress, getInvoiceResponse.Customer.CustomerAddress.StreetAddress);
+            Assert.AreEqual(request.Customer.EmailAddress, getInvoiceResponse.Customer.EmailAddress);
+            Assert.AreEqual(request.Customer.Identification, getInvoiceResponse.Customer.Identification);
+            Assert.AreEqual(request.Customer.TaxNumber, getInvoiceResponse.Customer.TaxNumber);
+            Assert.AreEqual(request.Items.Count, getInvoiceResponse.InvoiceItems.Count);
+            for (int i = 0; i < request.Items.Count; ++i)
+            {
+                Assert.AreEqual(request.Items[i].GrossAmount, getInvoiceResponse.InvoiceItems[i].GrossAmount);
+                Assert.AreEqual(request.Items[i].Name, getInvoiceResponse.InvoiceItems[i].Name);
+                Assert.AreEqual(request.Items[i].NetPrice, getInvoiceResponse.InvoiceItems[i].NetPrice);
+                Assert.AreEqual(request.Items[i].Quantity, getInvoiceResponse.InvoiceItems[i].Quantity);
+                Assert.AreEqual(request.Items[i].UnitOfQuantity, getInvoiceResponse.InvoiceItems[i].UnitOfQuantity);
+                Assert.AreEqual(request.Items[i].UnitPrice, getInvoiceResponse.InvoiceItems[i].UnitPrice);
+                Assert.AreEqual(request.Items[i].VatAmount, getInvoiceResponse.InvoiceItems[i].VatAmount);
+                Assert.AreEqual(request.Items[i].VatRate, getInvoiceResponse.InvoiceItems[i].VatRate);
+            }
+            var deleteInvoiceRequest = new DeleteInvoiceRequest();
+            deleteInvoiceRequest.AuthenticationData.ApiKey = apiKey;
+            deleteInvoiceRequest.InvoiceNumber = response.InvoiceNumber;
+            var deleteInvoiceResponse = await api.DeleteProFormaInvoice(deleteInvoiceRequest);
+            Assert.IsTrue(deleteInvoiceResponse.Success, deleteInvoiceResponse.ErrorMessage);
         }
 
         private CreateInvoiceRequest CreateSampleRequest()
@@ -87,6 +127,7 @@ namespace SzamlazzHuTest
             request.Seller.EmailSubject = "Invoice notification";
             request.Seller.EmailText = "mail text";
             request.Customer.Name = "Kovacs Bt.";
+            request.Customer.CustomerAddress.Country = "Magyarország";
             request.Customer.CustomerAddress.PostalCode = "2030";
             request.Customer.CustomerAddress.City = "Érd";
             request.Customer.CustomerAddress.StreetAddress = "Tárnoki út 23.";

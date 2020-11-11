@@ -42,20 +42,55 @@ namespace SzamlazzHu
             }
             response.InvoiceHeader = ParseInvoiceHeader(root["alap"]);
             response.Customer = ParseCustomer(root["vevo"]);
+            response.Seller = ParseSeller(root["szallito"]);
             return response;
+        }
+
+        internal static DeleteInvoiceResponse ParseDeleteInvoiceResponse(XmlDocument doc)
+        {
+            var root = doc.DocumentElement;
+            return new DeleteInvoiceResponse
+            {
+                Success = GetBool(root, "sikeres"),
+                ErrorCode = GetInt(root, "hibakod"),
+                ErrorMessage = GetString(root, "hibauzenet")
+            };
+        }
+
+        private static Seller ParseSeller(XmlNode node)
+        {
+            return new Seller
+            {
+                BankName = GetString(node["bank"], "nev"),
+                BankAccount = GetString(node["bank"], "bankszamla")
+            };
         }
 
         private static Customer ParseCustomer(XmlNode node)
         {
             return new Customer
             {
-                
+                Name = GetString(node, "nev"),
+                Identification = GetString(node, "azonosito"),
+                CustomerAddress = ParseAddress(node["cim"]),
+                EmailAddress = GetString(node, "email"),
+                TaxNumber = GetString(node, "adoszam")
+            };
+        }
+
+        private static Address ParseAddress(XmlNode node)
+        {
+            return new Address
+            {
+                Country = GetString(node, "orszag"),
+                PostalCode = GetString(node, "irsz"),
+                City = GetString(node, "telepules"),
+                StreetAddress = GetString(node, "cim")
             };
         }
 
         private static InvoiceHeader ParseInvoiceHeader(XmlNode node)
         {
-            var invoiceNumber = GetString(node, "szamlaszam").Split('-');
             return new InvoiceHeader
             {
                 CompletionDate = GetDate(node, "telj"),
@@ -65,13 +100,23 @@ namespace SzamlazzHu
                 Language = GetEnum<InvoiceLanguage>(node, "nyelv"),
                 Comment = GetString(node, "megjegyzes"),
                 FeeCollection = GetString(node, "tipus").ToLower() == "d",
-                InvoiceNumberPrefix = invoiceNumber.Length == 3 ? invoiceNumber[0] : invoiceNumber[1]
+                InvoiceNumberPrefix = GetPrefix(GetString(node, "szamlaszam"))
             };
+        }
+
+        private static string GetPrefix(string invoiceNumber)
+        {
+            var parts = invoiceNumber.Split('-');
+            if (parts.Length == 4)
+                return parts[1];
+            if (parts[0] == "D")
+                return parts[1];
+            return parts[0];
         }
 
         private static DateTime GetDate(XmlNode node, string tagName)
         {
-            return DateTime.ParseExact(GetString(node, "fizh"), "yyyy-mm-dd", CultureInfo.InvariantCulture);
+            return DateTime.ParseExact(GetString(node, "fizh"), "yyyy-MM-dd", CultureInfo.InvariantCulture);
         }
 
         private static T GetEnum<T>(XmlNode node, string tagName)

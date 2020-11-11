@@ -5,7 +5,6 @@ using System.Text;
 using System.Linq;
 using System.Xml;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 
 namespace SzamlazzHu
 {
@@ -19,7 +18,6 @@ namespace SzamlazzHu
                 using (var requestStream = CompressXmlStream(xmlStream))
                 {
                     var doc = await HttpUploadXmlFile("https://www.szamlazz.hu/szamla/", requestStream.ToArray(), "action-xmlagentxmlfile");
-                    File.WriteAllText("response1.xml", doc.OuterXml);
                     return XmlParser.ParseCreateInvoiceResponse(doc);
                 }
             }
@@ -32,8 +30,18 @@ namespace SzamlazzHu
                 using (var requestStream = CompressXmlStream(xmlStream))
                 {
                     var doc = await HttpUploadXmlFile("https://www.szamlazz.hu/szamla/", requestStream.ToArray(), "action-szamla_agent_xml");
-                    File.WriteAllText("response2.xml", doc.OuterXml);
                     return XmlParser.ParseGetInvoiceResponse(doc);
+                }
+            }
+        }
+        public async Task<DeleteInvoiceResponse> DeleteProFormaInvoice(DeleteInvoiceRequest request)
+        {
+            using (var xmlStream = XMLRenderer.RenderRequest(request))
+            {
+                using (var requestStream = CompressXmlStream(xmlStream))
+                {
+                    var doc = await HttpUploadXmlFile("https://www.szamlazz.hu/szamla/", requestStream.ToArray(), "action-szamla_agent_dijbekero_torlese");
+                    return XmlParser.ParseDeleteInvoiceResponse(doc);
                 }
             }
         }
@@ -97,22 +105,5 @@ namespace SzamlazzHu
             byte[] textbytes = Encoding.UTF8.GetBytes(text);
             rs.Write(textbytes, 0, textbytes.Length);
         }
-    }
-
-    public class GetInvoiceRequest
-    {
-        public AuthenticationData AuthenticationData { get; set; } = new AuthenticationData();
-        public string InvoiceNumber { get; set; }
-        public string OrderNumber { get; set; }
-        public bool Pdf { get; set; }
-    }
-
-    public class GetInvoiceResponse
-    {
-        public byte[] InvoicePdf { get; internal set; }
-        public InvoiceHeader InvoiceHeader { get; set; }
-        public Seller Seller { get; set; }
-        public Customer Customer { get; set; }
-        public List<InvoiceItem> InvoiceItems { get; set; } = new List<InvoiceItem>();
     }
 }

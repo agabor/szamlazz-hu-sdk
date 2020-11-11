@@ -30,5 +30,13 @@ namespace SzamlazzHu
             stream.Position = 0;
             return stream;
         }
+
+        internal static MemoryStream RenderRequest(DeleteInvoiceRequest request)
+        {
+            const string path = "deleteInvoiceRequest.sbn";
+            var template = Template.Parse(File.ReadAllText(path), path);
+            var xmlString = template.Render(new { Request = request });
+            return CreateMemoryStream(xmlString);
+        }
     }
 }

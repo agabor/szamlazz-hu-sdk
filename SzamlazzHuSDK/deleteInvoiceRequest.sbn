@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmlszamladbkdel xmlns="http://www.szamlazz.hu/xmlszamladbkdel" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.szamlazz.hu/xmlszamladbkdel http://www.szamlazz.hu/docs/xsds/szamladbkdel/xmlszamladbkdel.xsd ">
+  <beallitasok>
+    {{~ if request.authentication_data.user ~}}
+    <felhasznalo>{{ request.authentication_data.user }}</felhasznalo>
+    {{~ end ~}}
+    {{~ if request.authentication_data.password ~}}
+    <jelszo>{{ request.authentication_data.password }}</jelszo>
+    {{~ end ~}}
+    {{~ if request.authentication_data.api_key ~}}
+    <szamlaagentkulcs>{{ request.authentication_data.api_key }}</szamlaagentkulcs>
+    {{~ end ~}}
+  </beallitasok>
+  <fejlec>
+    <szamlaszam>{{ request.invoice_number }}</szamlaszam>
+  </fejlec>
+</xmlszamladbkdel>
