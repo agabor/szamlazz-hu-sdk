@@ -43,6 +43,14 @@ namespace SzamlazzHuTest
                 }
             }
         }
+
+        [TestMethod]
+        public void ResponseParseTest()
+        {
+            var doc = new XmlDocument();
+            doc.Load("testGetInvoiceResponse.xml");
+            var response = XmlParser.ParseGetInvoiceResponse(doc);
+        }
         
         [TestMethod]
         public async Task WebRequestTest()
@@ -50,7 +58,6 @@ namespace SzamlazzHuTest
             var api = new SzamlazzHuApi();
             var request = CreateSampleRequest();
             string apiKey = Environment.GetEnvironmentVariable("SZAMLAZZ_HU_KEY");
-            //string apiKey = "jnvfp588x5s7spk4s588x5stzccgd588x5s6s86ya5";
             request.AuthenticationData.ApiKey = apiKey;
             request.Header.InvoiceNumberPrefix = "NINCS";
             request.Header.IssueDate = DateTime.Now;
@@ -74,17 +81,18 @@ namespace SzamlazzHuTest
             request.Header.CompletionDate = new DateTime(2020, 1, 20);
             request.Header.DueDate = new DateTime(2020, 1, 20);
             request.Header.Comment = "Invoce comment";
+            request.Header.PaymentType = PaymentType.BankTransfer;
             request.Seller.BankName = "BB";
             request.Seller.BankAccount = "11111111-22222222-33333333";
             request.Seller.EmailSubject = "Invoice notification";
             request.Seller.EmailText = "mail text";
-            request.Customer.CustomerAddress.Name = "Kovacs Bt.";
+            request.Customer.Name = "Kovacs Bt.";
             request.Customer.CustomerAddress.PostalCode = "2030";
             request.Customer.CustomerAddress.City = "Érd";
             request.Customer.CustomerAddress.StreetAddress = "Tárnoki út 23.";
             request.Customer.EmailAddress = "buyer@example.com";
             request.Customer.TaxNumber = "12345678-1-42";
-            request.Customer.PostalAddress.Name = "Kovács Bt. mailing name";
+            request.Customer.PostalName = "Kovács Bt. mailing name";
             request.Customer.PostalAddress.PostalCode = "2040";
             request.Customer.PostalAddress.City = "Budaörs";
             request.Customer.PostalAddress.StreetAddress = "Szivárvány utca 8.";

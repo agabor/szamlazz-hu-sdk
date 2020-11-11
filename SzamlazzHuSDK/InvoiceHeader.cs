@@ -13,7 +13,8 @@ namespace SzamlazzHu
         public PaymentType PaymentType { get; set; }
         public string PaymentTypeString => GetEnumDescription(PaymentType);
         public string Currency { get; set; } = "HUF";
-        public InvoiceLanguage Language { get; set;} = InvoiceLanguage.Hu;
+        public InvoiceLanguage Language { get; set;} = InvoiceLanguage.Hungarian;
+        public string LanguageString => GetEnumDescription(Language);
         public string Comment { get; set; }
         public string Bank { get; set; } = "MNB";
         public float ExchangeRate { get; set; }
@@ -24,8 +25,6 @@ namespace SzamlazzHu
         public string CorrectedInvoiceNumber { get; set; }
         public bool FeeCollection { get; set; }
         public string InvoiceNumberPrefix { get; set; }
-        public Seller Seller { get; set; }
-        public Customer Customer { get; set; }
 
         private static string GetEnumDescription(Enum value)
         {

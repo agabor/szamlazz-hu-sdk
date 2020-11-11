@@ -38,7 +38,7 @@
         <penznem>{{ request.header.currency }}</penznem>
         <!-- currency: it can be seen in case you create the invoice 
                                  from browser -->
-        <szamlaNyelve>{{ string.downcase request.header.language }}</szamlaNyelve>
+        <szamlaNyelve>{{ request.header.language_string }}</szamlaNyelve>
         <!-- language of invoice, can  be: de, en, it, hu, fr, ro, sk, hr
                                    -->
         <megjegyzes>{{ request.header.comment }}</megjegyzes>
@@ -83,7 +83,7 @@
     </elado>
     <vevo>
         <!--Buyer details -->
-        <nev>{{ request.customer.customer_address.name }}</nev>
+        <nev>{{ request.customer.name }}</nev>
         <!-- name -->
         <irsz>{{ request.customer.customer_address.postal_code }}</irsz>
         <!-- ZIP code -->
@@ -97,7 +97,7 @@
         <!-- should we send the e-mail to the customer (by email) -->
         <adoszam>{{ request.customer.tax_number }}</adoszam>
         <!-- fiscal number/tax number -->
-        <postazasiNev>{{ request.customer.postal_address.name }}</postazasiNev>
+        <postazasiNev>{{ request.customer.postal_name }}</postazasiNev>
         <!--delivery name/postal name -->
         <postazasiIrsz>{{ request.customer.postal_address.postal_code }}</postazasiIrsz>
         <!--delivery ZIP code/postal ZIP code -->
