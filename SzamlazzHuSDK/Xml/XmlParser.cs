@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Xml;
+using SzamlazzHuSDK.Model;
 
 namespace SzamlazzHu
 {
@@ -39,6 +40,11 @@ namespace SzamlazzHu
             for (int i = 0; i < items.Count; ++i)
             {
                 response.InvoiceItems.Add(ParseInvoiceItem(items.Item(i)));
+            }
+            var paymentItems = root["kifizetesek"].ChildNodes;
+            for (int i = 0; i < paymentItems.Count; ++i)
+            {
+                response.PaymentItems.Add(ParsePaymentItem(items.Item(i)));
             }
             response.InvoiceHeader = ParseInvoiceHeader(root["alap"]);
             response.Customer = ParseCustomer(root["vevo"]);
@@ -149,6 +155,18 @@ namespace SzamlazzHu
                 VatAmount = GetFloat(node, "afa"),
                 GrossAmount = GetFloat(node, "brutto"),
                 Comment = GetString(node, "megjegyzes")
+            };
+        }
+
+        private static PaymentItem ParsePaymentItem(XmlNode node)
+        {
+            return new PaymentItem
+            {
+                Date = GetDate(node, "datum"),
+                Title = GetString(node, "jogcim"),
+                Amount = GetFloat(node, "osszeg"),
+                Comment = GetString(node, "megjegyzes"),
+                BankAccountNumber = GetString(node, "bankszamlaszam")
             };
         }
 
