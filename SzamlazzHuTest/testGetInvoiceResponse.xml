@@ -108,4 +108,13 @@
       <brutto>38100</brutto>
     </totalossz>
   </osszegek>
+  <kifizetesek>
+    <kifizetes>
+      <datum>2020-09-22</datum>
+      <jogcim>transfer</jogcim>
+      <osszeg>15</osszeg>
+      <megjegyzes>comment</megjegyzes>
+      <bankszamlaszam>111167564355767895454564</bankszamlaszam>
+    </kifizetes>
+  </kifizetesek>
 </szamla>

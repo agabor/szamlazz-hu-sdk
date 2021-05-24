@@ -52,6 +52,11 @@ namespace SzamlazzHuTest
             var response = XmlParser.ParseGetInvoiceResponse(doc);
             Assert.AreEqual(new DateTime(2020, 11, 10), response.InvoiceHeader.DueDate);
             Assert.AreEqual("Kovacs Bt.", response.Customer.Name);
+            Assert.AreEqual(new DateTime(2020, 09, 22) , response.PaymentItems[0].Date);
+            Assert.AreEqual("transfer", response.PaymentItems[0].Title);
+            Assert.AreEqual(15, response.PaymentItems[0].Amount);
+            Assert.AreEqual("comment", response.PaymentItems[0].Comment);
+            Assert.AreEqual("111167564355767895454564", response.PaymentItems[0].BankAccountNumber);
         }
         
         [TestMethod]
