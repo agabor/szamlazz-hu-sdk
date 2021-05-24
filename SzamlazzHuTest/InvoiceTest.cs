@@ -57,6 +57,13 @@ namespace SzamlazzHuTest
             Assert.AreEqual(15, response.PaymentItems[0].Amount);
             Assert.AreEqual("comment", response.PaymentItems[0].Comment);
             Assert.AreEqual("111167564355767895454564", response.PaymentItems[0].BankAccountNumber);
+            Assert.AreEqual(27, response.Summaries.VatRateSums.VatRate);
+            Assert.AreEqual(30000, response.Summaries.VatRateSums.Net);
+            Assert.AreEqual(8100, response.Summaries.VatRateSums.Vat);
+            Assert.AreEqual(38100, response.Summaries.VatRateSums.Gross);
+            Assert.AreEqual(30000, response.Summaries.TotalSums.Net);
+            Assert.AreEqual(8100, response.Summaries.TotalSums.Vat);
+            Assert.AreEqual(38100, response.Summaries.TotalSums.Gross);
         }
         
         [TestMethod]

@@ -35,11 +35,11 @@ namespace SzamlazzHu
             var response = new GetInvoiceResponse
             {
                 InvoicePdf = pdfString != null ? Convert.FromBase64String(pdfString) : null
-            };
-            var items = root["tetelek"].ChildNodes;
-            for (int i = 0; i < items.Count; ++i)
+            };            
+
+            foreach (var item in root["tetelek"].ChildNodes)
             {
-                response.InvoiceItems.Add(ParseInvoiceItem(items.Item(i)));
+                response.InvoiceItems.Add(ParseInvoiceItem((XmlNode)item));
             }
 
             foreach (var payment in root["kifizetesek"].ChildNodes)
@@ -50,6 +50,7 @@ namespace SzamlazzHu
             response.InvoiceHeader = ParseInvoiceHeader(root["alap"]);
             response.Customer = ParseCustomer(root["vevo"]);
             response.Seller = ParseSeller(root["szallito"]);
+            response.Summaries = ParseSummaries(root["osszegek"]);
             return response;
         }
 
@@ -108,6 +109,28 @@ namespace SzamlazzHu
                 Comment = GetString(node, "megjegyzes"),
                 FeeCollection = GetString(node, "tipus").ToLower() == "d",
                 InvoiceNumberPrefix = GetPrefix(GetString(node, "szamlaszam"))
+            };
+        }
+
+        private static Summaries ParseSummaries(XmlElement element)
+        {
+            XmlNode vatRateSums = element["afakulcsossz"];
+            XmlNode totalSums = element["totalossz"];
+            return new Summaries
+            {
+                VatRateSums = new VatRateSums
+                {
+                    VatRate = GetFloat(vatRateSums, "afakulcs"),
+                    Net = GetFloat(vatRateSums, "netto"),
+                    Vat = GetFloat(vatRateSums, "afa"),
+                    Gross = GetFloat(vatRateSums, "brutto")
+                },
+                TotalSums = new TotalSums
+                {
+                    Net = GetFloat(totalSums, "netto"),
+                    Vat = GetFloat(totalSums, "afa"),
+                    Gross = GetFloat(totalSums, "brutto")
+                }
             };
         }
 
