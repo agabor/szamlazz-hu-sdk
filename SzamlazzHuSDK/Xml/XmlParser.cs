@@ -41,11 +41,12 @@ namespace SzamlazzHu
             {
                 response.InvoiceItems.Add(ParseInvoiceItem(items.Item(i)));
             }
-            var paymentItems = root["kifizetesek"].ChildNodes;
-            for (int i = 0; i < paymentItems.Count; ++i)
+
+            foreach (var payment in root["kifizetesek"].ChildNodes)
             {
-                response.PaymentItems.Add(ParsePaymentItem(items.Item(i)));
+                response.PaymentItems.Add(ParsePaymentItem((XmlNode)payment));
             }
+
             response.InvoiceHeader = ParseInvoiceHeader(root["alap"]);
             response.Customer = ParseCustomer(root["vevo"]);
             response.Seller = ParseSeller(root["szallito"]);
