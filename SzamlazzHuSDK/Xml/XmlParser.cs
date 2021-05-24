@@ -123,7 +123,7 @@ namespace SzamlazzHu
 
         private static DateTime GetDate(XmlNode node, string tagName)
         {
-            return DateTime.ParseExact(GetString(node, "fizh"), "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            return DateTime.ParseExact(GetString(node, tagName), "yyyy-MM-dd", CultureInfo.InvariantCulture);
         }
 
         private static T GetEnum<T>(XmlNode node, string tagName)
