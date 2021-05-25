@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Xml;
+using SzamlazzHuSDK.Model;
 
 namespace SzamlazzHu
 {
@@ -40,6 +41,12 @@ namespace SzamlazzHu
             {
                 response.InvoiceItems.Add(ParseInvoiceItem(items.Item(i)));
             }
+
+            foreach (var payment in root["kifizetesek"].ChildNodes)
+            {
+                response.PaymentItems.Add(ParsePaymentItem((XmlNode)payment));
+            }
+
             response.InvoiceHeader = ParseInvoiceHeader(root["alap"]);
             response.Customer = ParseCustomer(root["vevo"]);
             response.Seller = ParseSeller(root["szallito"]);
@@ -116,7 +123,7 @@ namespace SzamlazzHu
 
         private static DateTime GetDate(XmlNode node, string tagName)
         {
-            return DateTime.ParseExact(GetString(node, "fizh"), "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            return DateTime.ParseExact(GetString(node, tagName), "yyyy-MM-dd", CultureInfo.InvariantCulture);
         }
 
         private static T GetEnum<T>(XmlNode node, string tagName)
@@ -149,6 +156,18 @@ namespace SzamlazzHu
                 VatAmount = GetFloat(node, "afa"),
                 GrossAmount = GetFloat(node, "brutto"),
                 Comment = GetString(node, "megjegyzes")
+            };
+        }
+
+        private static PaymentItem ParsePaymentItem(XmlNode node)
+        {
+            return new PaymentItem
+            {
+                Date = GetDate(node, "datum"),
+                Title = GetString(node, "jogcim"),
+                Amount = GetFloat(node, "osszeg"),
+                Comment = GetString(node, "megjegyzes"),
+                BankAccountNumber = GetString(node, "bankszamlaszam")
             };
         }
 
