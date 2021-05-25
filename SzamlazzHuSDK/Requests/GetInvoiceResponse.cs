@@ -11,5 +11,6 @@ namespace SzamlazzHu
         public Customer Customer { get; set; }
         public List<InvoiceItem> InvoiceItems { get; set; } = new List<InvoiceItem>();
         public List<PaymentItem> PaymentItems { get; set; } = new List<PaymentItem>();
+        public Summaries Summaries { get; set; }
     }
 }
