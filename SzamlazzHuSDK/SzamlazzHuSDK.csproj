@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <PackageId>szamlazz-hu-sdk</PackageId>
-    <Version>1.1.0</Version>
+    <Version>1.2.0</Version>
     <Authors>Gabor Angyal</Authors>
     <Company>Code Sharp Kft.</Company>
     <Owner>Code Sharp Kft.</Owner>
@@ -26,5 +26,17 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="logo.png" Pack="true" PackagePath=""/>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="*.sbn">
+        <Pack>true</Pack>
+        <PackagePath>contentFiles;content</PackagePath>
+        <IncludeInPackage>true</IncludeInPackage>
+        <CopyToOutput>true</CopyToOutput>
+        <BuildAction>Content</BuildAction>
+        <copyToOutput>true</copyToOutput>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 </Project>

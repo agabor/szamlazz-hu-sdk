@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SzamlazzHuSDK.Model
+namespace SzamlazzHu
 {
     public class PaymentItem
     {
