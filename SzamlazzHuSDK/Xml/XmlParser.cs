@@ -37,15 +37,19 @@ namespace SzamlazzHu
                 InvoicePdf = pdfString != null ? Convert.FromBase64String(pdfString) : null
             };            
 
-            foreach (var item in root["tetelek"].ChildNodes)
-            {
-                response.InvoiceItems.Add(ParseInvoiceItem((XmlNode)item));
-            }
+            var tetelek = root["tetelek"];
+            if (tetelek != null)
+                foreach (var item in tetelek.ChildNodes)
+                {
+                    response.InvoiceItems.Add(ParseInvoiceItem((XmlNode)item));
+                }
 
-            foreach (var payment in root["kifizetesek"].ChildNodes)
-            {
-                response.PaymentItems.Add(ParsePaymentItem((XmlNode)payment));
-            }
+            var kifizetesek = root["kifizetesek"];
+            if (kifizetesek != null)
+                foreach (var payment in kifizetesek.ChildNodes)
+                {
+                    response.PaymentItems.Add(ParsePaymentItem((XmlNode)payment));
+                }
 
             response.InvoiceHeader = ParseInvoiceHeader(root["alap"]);
             response.Customer = ParseCustomer(root["vevo"]);
