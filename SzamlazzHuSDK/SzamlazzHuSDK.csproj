@@ -22,18 +22,16 @@
     <PackageReference Include="Scriban" Version="2.1.4" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="*.sbn" CopyToOutputDirectory="PreserveNewest" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="logo.png" Pack="true" PackagePath=""/>
   </ItemGroup>
   <ItemGroup>
-    <None Include="*.sbn">
+    <Content Include="*.sbn">
         <Pack>true</Pack>
         <PackageFlatten>true</PackageFlatten>
-        <PackagePath>content</PackagePath>
+        <PackagePath>contentFiles\any\any</PackagePath>
         <IncludeInPackage>true</IncludeInPackage>
         <PackageCopyToOutput>true</PackageCopyToOutput>
-    </None>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </Project>
