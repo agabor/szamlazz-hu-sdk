@@ -8,7 +8,7 @@ namespace SzamlazzHu
     {
         public DateTime Date { get; set; }
         public string Title { get; set; }
-        public float Amount { get; set; }
+        public decimal Amount { get; set; }
         public string Comment { get; set; }
         public string BankAccountNumber { get; set; }
     }
