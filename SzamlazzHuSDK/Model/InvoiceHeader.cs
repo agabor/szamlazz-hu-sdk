@@ -17,7 +17,7 @@ namespace SzamlazzHu
         public string LanguageString => GetEnumDescription(Language);
         public string Comment { get; set; }
         public string Bank { get; set; } = "MNB";
-        public float ExchangeRate { get; set; }
+        public decimal ExchangeRate { get; set; }
         public string OrderNumber { get; set; }
         public bool DepositInvoice { get; set; }
         public bool FinalBill { get; set; }
