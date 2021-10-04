@@ -19,9 +19,9 @@ namespace SzamlazzHu
                 ErrorCode = GetInt(root, "hibakod"),
                 ErrorMessage = GetString(root, "hibauzenet"),
                 InvoiceNumber = GetString(root, "szamlaszam"),
-                NetPrice = GetFloat(root, "szamlanetto"),
-                GrossPrice = GetFloat(root, "szamlabrutto"),
-                Receivable = GetFloat(root, "kintlevoseg"),
+                NetPrice = GetDecimal(root, "szamlanetto"),
+                GrossPrice = GetDecimal(root, "szamlabrutto"),
+                Receivable = GetDecimal(root, "kintlevoseg"),
                 CustomerAccountUrl = GetString(root, "vevoifiokurl"),
                 InvoicePdf = pdfString != null ? Convert.FromBase64String(pdfString) : null
             };
@@ -123,16 +123,16 @@ namespace SzamlazzHu
             {
                 VatRateSums = new VatRateSums
                 {
-                    VatRate = GetFloat(vatRateSums, "afakulcs"),
-                    Net = GetFloat(vatRateSums, "netto"),
-                    Vat = GetFloat(vatRateSums, "afa"),
-                    Gross = GetFloat(vatRateSums, "brutto")
+                    VatRate = GetDecimal(vatRateSums, "afakulcs"),
+                    Net = GetDecimal(vatRateSums, "netto"),
+                    Vat = GetDecimal(vatRateSums, "afa"),
+                    Gross = GetDecimal(vatRateSums, "brutto")
                 },
                 TotalSums = new TotalSums
                 {
-                    Net = GetFloat(totalSums, "netto"),
-                    Vat = GetFloat(totalSums, "afa"),
-                    Gross = GetFloat(totalSums, "brutto")
+                    Net = GetDecimal(totalSums, "netto"),
+                    Vat = GetDecimal(totalSums, "afa"),
+                    Gross = GetDecimal(totalSums, "brutto")
                 }
             };
         }
@@ -174,13 +174,13 @@ namespace SzamlazzHu
             return new InvoiceItem
             {
                 Name = GetString(node, "nev"),
-                Quantity = GetFloat(node, "mennyiseg"),
+                Quantity = GetDecimal(node, "mennyiseg"),
                 UnitOfQuantity = GetString(node, "mennyisegiegyseg"),
-                UnitPrice = GetFloat(node, "nettoegysegar"),
+                UnitPrice = GetDecimal(node, "nettoegysegar"),
                 VatRate = GetString(node, "afakulcs"),
-                NetPrice = GetFloat(node, "netto"),
-                VatAmount = GetFloat(node, "afa"),
-                GrossAmount = GetFloat(node, "brutto"),
+                NetPrice = GetDecimal(node, "netto"),
+                VatAmount = GetDecimal(node, "afa"),
+                GrossAmount = GetDecimal(node, "brutto"),
                 Comment = GetString(node, "megjegyzes")
             };
         }
@@ -191,7 +191,7 @@ namespace SzamlazzHu
             {
                 Date = GetDate(node, "datum"),
                 Title = GetString(node, "jogcim"),
-                Amount = GetFloat(node, "osszeg"),
+                Amount = GetDecimal(node, "osszeg"),
                 Comment = GetString(node, "megjegyzes"),
                 BankAccountNumber = GetString(node, "bankszamlaszam")
             };
@@ -216,6 +216,11 @@ namespace SzamlazzHu
         private static string GetString(XmlNode doc, string tagName)
         {
             return doc[tagName]?.FirstChild.Value;
+        }
+        private static decimal GetDecimal(XmlNode doc, string tagName)
+        {
+            decimal.TryParse(GetString(doc, tagName), out decimal value);
+            return value;
         }
 
     }
