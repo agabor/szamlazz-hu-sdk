@@ -125,7 +125,7 @@
             <!-- unit of quantity -->
             <nettoEgysegar>10000.0</nettoEgysegar>
             <!-- unit price -->
-            <afakulcs>27</afakulcs>
+            <afakulcs>27.0</afakulcs>
             <!-- VAT rate -->
             <nettoErtek>10000.0</nettoErtek>
             <!-- net price -->
@@ -142,7 +142,7 @@
             <mennyiseg>2.0</mennyiseg>
             <mennyisegiEgyseg>db</mennyisegiEgyseg>
             <nettoEgysegar>10000.0</nettoEgysegar>
-            <afakulcs>27</afakulcs>
+            <afakulcs>27.0</afakulcs>
             <nettoErtek>20000.0</nettoErtek>
             <afaErtek>5400.0</afaErtek>
             <bruttoErtek>25400.0</bruttoErtek>
