@@ -2,10 +2,10 @@
 {
     public class TotalSums
     {
-        public float Net { get; set; }
+        public decimal Net { get; set; }
 
-        public float Vat { get; set; }
+        public decimal Vat { get; set; }
 
-        public float Gross { get; set; }
+        public decimal Gross { get; set; }
     }
 }
