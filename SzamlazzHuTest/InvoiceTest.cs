@@ -79,7 +79,7 @@ namespace SzamlazzHuTest
             request.Header.DueDate = DateTime.Now;
             request.Header.FeeCollection = true;
             var response = await api.CreateInvoice(request);
-            Assert.IsTrue(response.Success);
+            Assert.IsTrue(response.Success, response.ErrorMessage);
             var getInvoiceRequest = new GetInvoiceRequest();
             getInvoiceRequest.AuthenticationData.ApiKey = apiKey;
             getInvoiceRequest.InvoiceNumber = response.InvoiceNumber;
