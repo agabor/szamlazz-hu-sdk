@@ -215,7 +215,7 @@ namespace SzamlazzHu
         }
         private static string GetString(XmlNode doc, string tagName)
         {
-            return doc[tagName]?.FirstChild.Value;
+            return doc[tagName]?.FirstChild?.Value;
         }
         private static decimal GetDecimal(XmlNode doc, string tagName)
         {
