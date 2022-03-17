@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Scriban;
 
 namespace SzamlazzHu
@@ -7,7 +8,7 @@ namespace SzamlazzHu
     {
         public static MemoryStream RenderRequest(CreateInvoiceRequest request)
         {
-            const string path = "createInvoiceRequest.sbn";
+            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "createInvoiceRequest.sbn");
             var template = Template.Parse(File.ReadAllText(path), path);
             var xmlString = template.Render(new { Request = request });
             return CreateMemoryStream(xmlString);
@@ -15,7 +16,7 @@ namespace SzamlazzHu
 
         internal static MemoryStream RenderRequest(GetInvoiceRequest request)
         {
-            const string path = "getInvoiceRequest.sbn";
+            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"getInvoiceRequest.sbn");
             var template = Template.Parse(File.ReadAllText(path), path);
             var xmlString = template.Render(new { Request = request });
             return CreateMemoryStream(xmlString);
@@ -33,7 +34,7 @@ namespace SzamlazzHu
 
         internal static MemoryStream RenderRequest(DeleteInvoiceRequest request)
         {
-            const string path = "deleteInvoiceRequest.sbn";
+            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "deleteInvoiceRequest.sbn");
             var template = Template.Parse(File.ReadAllText(path), path);
             var xmlString = template.Render(new { Request = request });
             return CreateMemoryStream(xmlString);

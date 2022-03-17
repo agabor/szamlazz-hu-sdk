@@ -22,7 +22,7 @@
     <PackageReference Include="Scriban" Version="2.1.4" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="logo.png" Pack="true" PackagePath=""/>
+    <None Include="logo.png" Pack="true" PackagePath="" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="*.sbn">
