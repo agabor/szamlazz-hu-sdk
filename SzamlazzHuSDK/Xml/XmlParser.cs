@@ -111,7 +111,8 @@ namespace SzamlazzHu
                 Language = GetEnum<InvoiceLanguage>(node, "nyelv"),
                 Comment = GetString(node, "megjegyzes"),
                 FeeCollection = GetString(node, "tipus").ToLower() == "d",
-                InvoiceNumberPrefix = GetPrefix(GetString(node, "szamlaszam"))
+                InvoiceNumberPrefix = GetPrefix(GetString(node, "szamlaszam")),
+                OrderNumber = GetString(node, "rendelesszam")
             };
         }
 
