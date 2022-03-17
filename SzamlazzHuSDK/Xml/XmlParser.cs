@@ -27,6 +27,16 @@ namespace SzamlazzHu
             };
         }
 
+        public static StornoInvoiceResponse ParseStornoInvoiceResponse(XmlDocument doc)
+        {
+            var root = doc.DocumentElement;
+            return new StornoInvoiceResponse
+            {
+                AgentResponse = GetString(root, "AgentResponse"),
+                InvoiceNumber = GetString(root, "InvoiceNumber")
+            };
+        }
+
         public static GetInvoiceResponse ParseGetInvoiceResponse(XmlDocument doc)
         {
             var root = doc.DocumentElement;

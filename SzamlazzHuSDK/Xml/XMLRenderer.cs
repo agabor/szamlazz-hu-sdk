@@ -6,6 +6,14 @@ namespace SzamlazzHu
 {
     public class XMLRenderer
     {
+        public static MemoryStream RenderRequest(StornoInvoiceRequest request)
+        {
+            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "stornoInvoiceRequest.sbn");
+            var template = Template.Parse(File.ReadAllText(path), path);
+            var xmlString = template.Render(new { Request = request });
+            return CreateMemoryStream(xmlString);
+        }
+
         public static MemoryStream RenderRequest(CreateInvoiceRequest request)
         {
             string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "createInvoiceRequest.sbn");

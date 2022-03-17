@@ -25,6 +25,7 @@ namespace SzamlazzHu
         public string CorrectedInvoiceNumber { get; set; }
         public bool FeeCollection { get; set; }
         public string InvoiceNumberPrefix { get; set; }
+        public string InvoiceType { get; set; }
 
         private static string GetEnumDescription(Enum value)
         {
