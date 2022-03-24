@@ -67,6 +67,7 @@
         <!-- proform invoice -->
         <szamlaszamElotag>{{ request.header.invoice_number_prefix }}</szamlaszamElotag>
         <!-- One of the prefixes from the invoice pad menu  -->
+        <fizetve>{{ request.header.paid }}</fizetve>
     </fejlec>
     <elado>
         <!-- Details of the merchant-->

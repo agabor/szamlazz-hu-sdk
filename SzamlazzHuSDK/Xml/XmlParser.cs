@@ -27,6 +27,16 @@ namespace SzamlazzHu
             };
         }
 
+        public static StornoInvoiceResponse ParseStornoInvoiceResponse(XmlDocument doc)
+        {
+            var root = doc.DocumentElement;
+            return new StornoInvoiceResponse
+            {
+                AgentResponse = GetString(root, "AgentResponse"),
+                InvoiceNumber = GetString(root, "InvoiceNumber")
+            };
+        }
+
         public static GetInvoiceResponse ParseGetInvoiceResponse(XmlDocument doc)
         {
             var root = doc.DocumentElement;
@@ -107,11 +117,12 @@ namespace SzamlazzHu
                 CompletionDate = GetDate(node, "telj"),
                 IssueDate = GetDate(node, "kelt"),
                 DueDate = GetDate(node, "fizh"),
-                PaymentType = GetEnum<PaymentType>(node, "fizmodunified"),
+                PaymentType = GetEnum<PaymentType>(node, "fizmod"),
                 Language = GetEnum<InvoiceLanguage>(node, "nyelv"),
                 Comment = GetString(node, "megjegyzes"),
                 FeeCollection = GetString(node, "tipus").ToLower() == "d",
-                InvoiceNumberPrefix = GetPrefix(GetString(node, "szamlaszam"))
+                InvoiceNumberPrefix = GetPrefix(GetString(node, "szamlaszam")),
+                OrderNumber = GetString(node, "rendelesszam")
             };
         }
 

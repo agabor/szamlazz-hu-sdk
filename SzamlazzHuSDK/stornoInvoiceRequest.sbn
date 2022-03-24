@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmlszamlast xmlns="http://www.szamlazz.hu/xmlszamlast" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.szamlazz.hu/xmlszamlast https://www.szamlazz.hu/szamla/docs/xsds/agent/xmlszamlast.xsd">
+    <beallitasok>
+        <!-- settings -->
+        {{~ if request.authentication_data.user ~}}
+        <felhasznalo>{{ request.authentication_data.user }}</felhasznalo>
+        {{~ end ~}}
+        {{~ if request.authentication_data.password ~}}
+        <jelszo>{{ request.authentication_data.password }}</jelszo>
+        {{~ end ~}}
+        {{~ if request.authentication_data.api_key ~}}
+        <szamlaagentkulcs>{{ request.authentication_data.api_key }}</szamlaagentkulcs>
+        {{~ end ~}}
+        <eszamla>{{ request.settings.electric }}</eszamla>
+        <!-- „true” in case you need to create an e-invoice -->
+        <szamlaLetoltes>{{ request.settings.download_invoice }}</szamlaLetoltes>
+        <szamlaLetoltesPld>1</szamlaLetoltesPld>
+        <szamlaKulsoAzon>{{ request.header.order_number }}</szamlaKulsoAzon>
+    </beallitasok>
+    <fejlec>
+        <!-- header -->
+        <szamlaszam>{{ request.invoice_number }}</szamlaszam>
+        <!-- invoice number -->
+        <keltDatum>{{ request.header.issue_date | date.to_string `%Y-%m-%d` }}</keltDatum>
+        <!-- date of issue -->
+        <tipus>SS</tipus>
+    </fejlec>
+    <elado>
+        <emailReplyto>{{ request.seller.email_address }}</emailReplyto>
+        <!-- reply e-mail address -->
+        <emailTargy>{{ request.seller.email_subject }}</emailTargy>
+        <!-- e-mail subject -->
+        <emailSzoveg>{{ request.seller.email_text }}</emailSzoveg>
+        <!-- text of e-mail -->
+    </elado>
+    <vevo>
+        <!-- buyer -->
+        <email>{{ request.customer.email_address }}</email>
+    </vevo>
+</xmlszamlast>
