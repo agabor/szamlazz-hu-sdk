@@ -23,6 +23,18 @@ namespace SzamlazzHu
             }
         }
 
+        public async Task<StornoInvoiceResponse> StornoInvoice(StornoInvoiceRequest request)
+        {
+            using (var xmlStream = XMLRenderer.RenderRequest(request))
+            {
+                using (var requestStream = CompressXmlStream(xmlStream))
+                {
+                    var doc = await HttpUploadXmlFile("https://www.szamlazz.hu/szamla/", requestStream.ToArray(), "action-szamla_agent_st");
+                    return XmlParser.ParseStornoInvoiceResponse(doc);
+                }
+            }
+        }
+
         public async Task<GetInvoiceResponse> GetInvoice(GetInvoiceRequest request)
         {
             using (var xmlStream = XMLRenderer.RenderRequest(request))
@@ -94,9 +106,25 @@ namespace SzamlazzHu
                         doc.LoadXml(xml);
                         return doc;
                     } catch {
-                        return null;
+                        if(paramName == "action-szamla_agent_st")
+                        {
+                            var doc = new XmlDocument();
+                            var root = doc.CreateElement("root");
+                            var agentResponseElement = doc.CreateElement("AgentResponse");
+                            var invoiceNumberElement = doc.CreateElement("InvoiceNumber");
+                            agentResponseElement.AppendChild(doc.CreateTextNode(xml.TrimEnd('\n').Split(';')[0]));
+                            invoiceNumberElement.AppendChild(doc.CreateTextNode(xml.TrimEnd('\n').Split(';')[1]));
+                            root.AppendChild(agentResponseElement);
+                            root.AppendChild(invoiceNumberElement);
+                            doc.AppendChild(root);
+                            return doc;
+                        }
+                        else
+                        {
+                            return null;
+                        }
                     }
-                }
+                } 
             }
         }
 

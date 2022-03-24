@@ -8,7 +8,7 @@ namespace SzamlazzHu
         BankTransfer,
         [Description("készpénz")]
         Cash,
-        [Description("bankkártya")]
+        [Description("Bankkártyás fizetés")]
         CreditCard,
         [Description("csekk")]
         Check,

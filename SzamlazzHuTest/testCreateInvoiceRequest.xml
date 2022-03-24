@@ -63,6 +63,7 @@
         <!-- proform invoice -->
         <szamlaszamElotag></szamlaszamElotag>
         <!-- One of the prefixes from the invoice pad menu  -->
+        <fizetve>false</fizetve>
     </fejlec>
     <elado>
         <!-- Details of the merchant-->
