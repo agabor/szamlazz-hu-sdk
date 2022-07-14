@@ -10,8 +10,7 @@ namespace SzamlazzHu
         public DateTime CompletionDate { get; set; } = DateTime.Now;
         public DateTime IssueDate { get; set; } = DateTime.Now;
         public DateTime DueDate { get; set; } = DateTime.Now;
-        public PaymentType PaymentType { get; set; }
-        public string PaymentTypeString => GetEnumDescription(PaymentType);
+        public string PaymentType { get; set; }
         public string Currency { get; set; } = "HUF";
         public InvoiceLanguage Language { get; set;} = InvoiceLanguage.Hungarian;
         public string LanguageString => GetEnumDescription(Language);

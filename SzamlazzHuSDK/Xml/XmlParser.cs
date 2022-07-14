@@ -117,7 +117,7 @@ namespace SzamlazzHu
                 CompletionDate = GetDate(node, "telj"),
                 IssueDate = GetDate(node, "kelt"),
                 DueDate = GetDate(node, "fizh"),
-                PaymentType = GetEnum<PaymentType>(node, "fizmod"),
+                PaymentType = GetString(node, "fizmod"),
                 Language = GetEnum<InvoiceLanguage>(node, "nyelv"),
                 Comment = GetString(node, "megjegyzes"),
                 FeeCollection = GetString(node, "tipus").ToLower() == "d",
