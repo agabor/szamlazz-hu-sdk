@@ -32,5 +32,5 @@ var api = new SzamlazzHuApi();
 var response = await api.CreateInvoice(request);
 
 //Optionally write invoice PDF to the disk
-File.WriteAllBytes("invoice.pdf", response.pdf);
+File.WriteAllBytes("invoice.pdf", response.InvoicePdf);
 ```
