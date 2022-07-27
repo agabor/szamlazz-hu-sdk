@@ -43,7 +43,7 @@
         <!-- name of bank: in case of invoice about other currency 
                                           than HUF you have to display which bank’s exchange rates 
                                           did we use to calculate VAT -->
-        <arfolyam>0.0</arfolyam>
+        <arfolyam>0.00</arfolyam>
         <!-- exchange rate: in case of invoice about other currency 
                                           than HUF you have to display which bank’s exchange rates 
                                           did we use to calculate VAT -->
@@ -120,19 +120,19 @@
             <!-- item 1 -->
             <megnevezes>Elado izé</megnevezes>
             <!-- name -->
-            <mennyiseg>1.0</mennyiseg>
+            <mennyiseg>1.00</mennyiseg>
             <!-- quantity -->
             <mennyisegiEgyseg>db</mennyisegiEgyseg>
             <!-- unit of quantity -->
-            <nettoEgysegar>10000.0</nettoEgysegar>
+            <nettoEgysegar>10000.00</nettoEgysegar>
             <!-- unit price -->
             <afakulcs>27.0</afakulcs>
             <!-- VAT rate -->
-            <nettoErtek>10000.0</nettoErtek>
+            <nettoErtek>10000.00</nettoErtek>
             <!-- net price -->
-            <afaErtek>2700.0</afaErtek>
+            <afaErtek>2700.00</afaErtek>
             <!-- VAT amount -->
-            <bruttoErtek>12700.0</bruttoErtek>
+            <bruttoErtek>12700.00</bruttoErtek>
             <!-- gross amount -->
             <megjegyzes>lorem ipsum</megjegyzes>
             <!-- comment for item -->
@@ -140,13 +140,13 @@
         <tetel>
             <!-- item 2, details are same as above -->
             <megnevezes>Elado izé 2</megnevezes>
-            <mennyiseg>2.0</mennyiseg>
+            <mennyiseg>2.00</mennyiseg>
             <mennyisegiEgyseg>db</mennyisegiEgyseg>
-            <nettoEgysegar>10000.0</nettoEgysegar>
+            <nettoEgysegar>10000.00</nettoEgysegar>
             <afakulcs>27.0</afakulcs>
-            <nettoErtek>20000.0</nettoErtek>
-            <afaErtek>5400.0</afaErtek>
-            <bruttoErtek>25400.0</bruttoErtek>
+            <nettoErtek>20000.00</nettoErtek>
+            <afaErtek>5400.00</afaErtek>
+            <bruttoErtek>25400.00</bruttoErtek>
             <megjegyzes>lorem ipsum 2</megjegyzes>
         </tetel>
     </tetelek>

@@ -47,7 +47,7 @@
         <!-- name of bank: in case of invoice about other currency 
                                           than HUF you have to display which bank’s exchange rates 
                                           did we use to calculate VAT -->
-        <arfolyam>{{ request.header.exchange_rate | math.format "F1" }}</arfolyam>
+        <arfolyam>{{ request.header.exchange_rate | math.format "F2" "en-US" }}</arfolyam>
         <!-- exchange rate: in case of invoice about other currency 
                                           than HUF you have to display which bank’s exchange rates 
                                           did we use to calculate VAT -->
@@ -125,19 +125,19 @@
             <!-- item 1 -->
             <megnevezes>{{ item.name }}</megnevezes>
             <!-- name -->
-            <mennyiseg>{{ item.quantity | math.format "F1" }}</mennyiseg>
+            <mennyiseg>{{ item.quantity | math.format "F2" "en-US" }}</mennyiseg>
             <!-- quantity -->
             <mennyisegiEgyseg>{{ item.unit_of_quantity }}</mennyisegiEgyseg>
             <!-- unit of quantity -->
-            <nettoEgysegar>{{ item.unit_price | math.format "F1" }}</nettoEgysegar>
+            <nettoEgysegar>{{ item.unit_price | math.format "F2" "en-US" }}</nettoEgysegar>
             <!-- unit price -->
             <afakulcs>{{ item.vat_rate }}</afakulcs>
             <!-- VAT rate -->
-            <nettoErtek>{{ item.net_price | math.format "F1" }}</nettoErtek>
+            <nettoErtek>{{ item.net_price | math.format "F2" "en-US" }}</nettoErtek>
             <!-- net price -->
-            <afaErtek>{{ item.vat_amount | math.format "F1" }}</afaErtek>
+            <afaErtek>{{ item.vat_amount | math.format "F2" "en-US" }}</afaErtek>
             <!-- VAT amount -->
-            <bruttoErtek>{{ item.gross_amount | math.format "F1" }}</bruttoErtek>
+            <bruttoErtek>{{ item.gross_amount | math.format "F2" "en-US" }}</bruttoErtek>
             <!-- gross amount -->
             <megjegyzes>{{ item.comment }}</megjegyzes>
             <!-- comment for item -->
