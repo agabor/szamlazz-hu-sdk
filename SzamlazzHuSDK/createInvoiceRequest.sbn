@@ -86,6 +86,8 @@
         <!--Buyer details -->
         <nev>{{ request.customer.name }}</nev>
         <!-- name -->
+        <orszag>{{ request.customer.customer_address.country }}</orszag>
+        <!-- Country -->
         <irsz>{{ request.customer.customer_address.postal_code }}</irsz>
         <!-- ZIP code -->
         <telepules>{{ request.customer.customer_address.city }}</telepules>

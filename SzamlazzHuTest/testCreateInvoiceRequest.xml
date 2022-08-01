@@ -82,6 +82,8 @@
         <!--Buyer details -->
         <nev>Kovacs Bt.</nev>
         <!-- name -->
+        <orszag>Magyarország</orszag>
+        <!-- Country -->
         <irsz>2030</irsz>
         <!-- ZIP code -->
         <telepules>Érd</telepules>
