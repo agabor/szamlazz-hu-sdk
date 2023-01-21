@@ -95,7 +95,8 @@ namespace SzamlazzHu
                 Identification = GetString(node, "azonosito"),
                 CustomerAddress = ParseAddress(node["cim"]),
                 EmailAddress = GetString(node, "email"),
-                TaxNumber = GetString(node, "adoszam")
+                TaxNumber = GetString(node, "adoszam"),
+                EuTaxNumber = GetString(node, "adoszamEU")
             };
         }
 
