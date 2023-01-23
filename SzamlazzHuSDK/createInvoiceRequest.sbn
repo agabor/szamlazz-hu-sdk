@@ -100,9 +100,9 @@
         <!-- should we send the e-mail to the customer (by email) -->
         <adoszam>{{ request.customer.tax_number }}</adoszam>
         <!-- fiscal number/tax number -->
-		<adoszamEU>{{ request.customer.eu_tax_number }}</adoszamEU>
-		<!-- eu tax number -->
-		<postazasiNev>{{ request.customer.postal_name }}</postazasiNev>
+        <adoszamEU>{{ request.customer.eu_tax_number }}</adoszamEU>
+        <!-- eu tax number -->
+        <postazasiNev>{{ request.customer.postal_name }}</postazasiNev>
         <!--delivery name/postal name -->
         <postazasiIrsz>{{ request.customer.postal_address.postal_code }}</postazasiIrsz>
         <!--delivery ZIP code/postal ZIP code -->

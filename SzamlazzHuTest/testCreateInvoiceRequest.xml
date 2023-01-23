@@ -96,8 +96,8 @@
         <!-- should we send the e-mail to the customer (by email) -->
         <adoszam>12345678-1-42</adoszam>
         <!-- fiscal number/tax number -->
-		<adoszamEU>HU12345678</adoszamEU>
-		<!-- eu tax number -->
+        <adoszamEU>HU12345678</adoszamEU>
+        <!-- eu tax number -->
         <postazasiNev>Kovács Bt. mailing name</postazasiNev>
         <!--delivery name/postal name -->
         <postazasiIrsz>2040</postazasiIrsz>

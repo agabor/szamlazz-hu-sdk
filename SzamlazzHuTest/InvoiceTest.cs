@@ -145,6 +145,7 @@ namespace SzamlazzHuTest
             request.Customer.CustomerAddress.StreetAddress = "Tárnoki út 23.";
             request.Customer.EmailAddress = "buyer@example.com";
             request.Customer.TaxNumber = "12345678-1-42";
+            request.Customer.EuTaxNumber = "HU12345678";
             request.Customer.PostalName = "Kovács Bt. mailing name";
             request.Customer.PostalAddress.PostalCode = "2040";
             request.Customer.PostalAddress.City = "Budaörs";
