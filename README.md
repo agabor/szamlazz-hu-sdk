@@ -34,3 +34,7 @@ var response = await api.CreateInvoice(request);
 //Optionally write invoice PDF to the disk
 File.WriteAllBytes("invoice.pdf", response.InvoicePdf);
 ```
+
+## Pull Requests are Welcome!
+
+If you are missing something please open an issue, or send a pull request! Every contribution is welcome :)
