@@ -78,6 +78,7 @@ namespace SzamlazzHuTest
             request.Header.CompletionDate = DateTime.Now;
             request.Header.DueDate = DateTime.Now;
             request.Header.FeeCollection = true;
+            request.Header.InvoiceTemplate = "Szla8cm";
             var response = await api.CreateInvoice(request);
             Assert.IsTrue(response.Success, response.ErrorMessage);
             var getInvoiceRequest = new GetInvoiceRequest();
@@ -96,6 +97,9 @@ namespace SzamlazzHuTest
             Assert.AreEqual(request.Header.IssueDate.Date, getInvoiceResponse.InvoiceHeader.IssueDate.Date);
             Assert.AreEqual(request.Header.Language, getInvoiceResponse.InvoiceHeader.Language);
             Assert.AreEqual(request.Header.PaymentType, getInvoiceResponse.InvoiceHeader.PaymentType);
+            // TODO: InvoiceTemplate is not returned by the API yet
+            //Assert.AreEqual(request.Header.InvoiceTemplate, getInvoiceResponse.InvoiceHeader.InvoiceTemplate);
+            Assert.AreEqual(getInvoiceResponse.InvoiceHeader.InvoiceTemplate, null);
             Assert.AreEqual(request.Customer.Name, getInvoiceResponse.Customer.Name);
             Assert.AreEqual(request.Customer.CustomerAddress.Country, getInvoiceResponse.Customer.CustomerAddress.Country);
             Assert.AreEqual(request.Customer.CustomerAddress.PostalCode, getInvoiceResponse.Customer.CustomerAddress.PostalCode);

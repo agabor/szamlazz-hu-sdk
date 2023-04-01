@@ -68,6 +68,8 @@
         <szamlaszamElotag>{{ request.header.invoice_number_prefix }}</szamlaszamElotag>
         <!-- One of the prefixes from the invoice pad menu  -->
         <fizetve>{{ request.header.paid }}</fizetve>
+		<!-- Codomain: 'SzlaMost' | 'SzlaAlap' | 'SzlaNoEnv' | 'Szla8cm' | 'SzlaTomb' | 'SzlaFuvarlevelesAlap'-->
+		<szamlaSablon>{{ request.header.invoice_template }}</szamlaSablon>
     </fejlec>
     <elado>
         <!-- Details of the merchant-->

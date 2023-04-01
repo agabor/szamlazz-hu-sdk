@@ -123,7 +123,8 @@ namespace SzamlazzHu
                 Comment = GetString(node, "megjegyzes"),
                 FeeCollection = GetString(node, "tipus").ToLower() == "d",
                 InvoiceNumberPrefix = GetPrefix(GetString(node, "szamlaszam")),
-                OrderNumber = GetString(node, "rendelesszam")
+                OrderNumber = GetString(node, "rendelesszam"),
+                InvoiceTemplate = GetString(node, "szamlaSablon")
             };
         }
 
