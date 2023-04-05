@@ -137,6 +137,7 @@ namespace SzamlazzHuTest
             request.Header.CompletionDate = new DateTime(2020, 1, 20);
             request.Header.DueDate = new DateTime(2020, 1, 20);
             request.Header.Comment = "Invoce comment";
+            request.Header.InvoiceTemplate = "Szla8cm";
             request.Header.PaymentType = "átutalás";
             request.Seller.BankName = "BB";
             request.Seller.BankAccount = "11111111-22222222-33333333";
