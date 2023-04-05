@@ -72,6 +72,8 @@ namespace SzamlazzHuTest
             var api = new SzamlazzHuApi();
             var request = CreateSampleRequest();
             string apiKey = Environment.GetEnvironmentVariable("SZAMLAZZ_HU_KEY");
+            if (string.IsNullOrEmpty(apiKey))
+                Assert.Inconclusive("Environment variable SZAMLAZZ_HU_KEY is not set.");
             request.AuthenticationData.ApiKey = apiKey;
             request.Header.InvoiceNumberPrefix = "NINCS";
             request.Header.IssueDate = DateTime.Now;
