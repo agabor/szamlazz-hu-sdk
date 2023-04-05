@@ -64,6 +64,7 @@
         <szamlaszamElotag></szamlaszamElotag>
         <!-- One of the prefixes from the invoice pad menu  -->
         <fizetve>false</fizetve>
+		<szamlaSablon>Szla8cm</szamlaSablon>
     </fejlec>
     <elado>
         <!-- Details of the merchant-->

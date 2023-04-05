@@ -78,6 +78,7 @@ namespace SzamlazzHuTest
             request.Header.CompletionDate = DateTime.Now;
             request.Header.DueDate = DateTime.Now;
             request.Header.FeeCollection = true;
+            request.Header.InvoiceTemplate = "Szla8cm";
             var response = await api.CreateInvoice(request);
             Assert.IsTrue(response.Success, response.ErrorMessage);
             var getInvoiceRequest = new GetInvoiceRequest();
@@ -96,6 +97,9 @@ namespace SzamlazzHuTest
             Assert.AreEqual(request.Header.IssueDate.Date, getInvoiceResponse.InvoiceHeader.IssueDate.Date);
             Assert.AreEqual(request.Header.Language, getInvoiceResponse.InvoiceHeader.Language);
             Assert.AreEqual(request.Header.PaymentType, getInvoiceResponse.InvoiceHeader.PaymentType);
+            // TODO: InvoiceTemplate is not returned by the API yet
+            //Assert.AreEqual(request.Header.InvoiceTemplate, getInvoiceResponse.InvoiceHeader.InvoiceTemplate);
+            Assert.AreEqual(getInvoiceResponse.InvoiceHeader.InvoiceTemplate, null);
             Assert.AreEqual(request.Customer.Name, getInvoiceResponse.Customer.Name);
             Assert.AreEqual(request.Customer.CustomerAddress.Country, getInvoiceResponse.Customer.CustomerAddress.Country);
             Assert.AreEqual(request.Customer.CustomerAddress.PostalCode, getInvoiceResponse.Customer.CustomerAddress.PostalCode);
@@ -133,6 +137,7 @@ namespace SzamlazzHuTest
             request.Header.CompletionDate = new DateTime(2020, 1, 20);
             request.Header.DueDate = new DateTime(2020, 1, 20);
             request.Header.Comment = "Invoce comment";
+            request.Header.InvoiceTemplate = "Szla8cm";
             request.Header.PaymentType = "átutalás";
             request.Seller.BankName = "BB";
             request.Seller.BankAccount = "11111111-22222222-33333333";
