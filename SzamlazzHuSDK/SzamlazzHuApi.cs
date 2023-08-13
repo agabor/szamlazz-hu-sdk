@@ -58,6 +58,18 @@ namespace SzamlazzHu
             }
         }
 
+        public async Task<QueryTaxpayerResponse> QueryTaxpayer(QueryTaxpayerRequest request)
+        {
+            using (var xmlStream = XMLRenderer.RenderRequest(request))
+            {
+                using (var requestStream = CompressXmlStream(xmlStream))
+                {
+                    var doc = await HttpUploadXmlFile("https://www.szamlazz.hu/szamla/", requestStream.ToArray(), "action-szamla_agent_taxpayer");
+                    return XmlParser.ParseQueryTaxpayerResponse(doc);
+                }
+            }
+        }
+
         private static MemoryStream CompressXmlStream(MemoryStream xmlStream)
         {
             var readerSettings = new XmlReaderSettings();
