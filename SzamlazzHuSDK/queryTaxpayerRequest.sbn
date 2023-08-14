@@ -12,5 +12,5 @@
         <szamlaagentkulcs>{{ request.authentication_data.api_key }}</szamlaagentkulcs>
         {{~ end ~}}
     </beallitasok>
-	<torzsszam>{{ request.registration_number }}</torzsszam>
+	<torzsszam>{{ request.taxpayer_id }}</torzsszam>
 </xmltaxpayer>
