@@ -98,8 +98,9 @@ public class SzamlazzHuApi
             var root = doc.CreateElement("root");
             var agentResponseElement = doc.CreateElement("AgentResponse");
             var invoiceNumberElement = doc.CreateElement("InvoiceNumber");
-            agentResponseElement.AppendChild(doc.CreateTextNode(xml.TrimEnd('\n').Split(';')[0]));
-            invoiceNumberElement.AppendChild(doc.CreateTextNode(xml.TrimEnd('\n').Split(';')[1]));
+            var elements = System.Web.HttpUtility.HtmlDecode(xml.TrimEnd('\n')).Split(';');
+            agentResponseElement.AppendChild(doc.CreateTextNode(elements[0]));
+            invoiceNumberElement.AppendChild(doc.CreateTextNode(elements[1]));
             root.AppendChild(agentResponseElement);
             root.AppendChild(invoiceNumberElement);
             doc.AppendChild(root);
