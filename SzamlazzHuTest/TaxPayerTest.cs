@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using System.Xml;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SzamlazzHu;
 
@@ -8,6 +9,15 @@ namespace SzamlazzHuTest;
 [TestClass]
 public class TaxPayerTest
 {
+    [TestMethod]
+    public void ParseQueryTaxpayerResponse()
+    {
+        var taxPayerDoc = new XmlDocument();
+        taxPayerDoc.Load("testQueryTaxpayerResponse.xml");
+        var taxPayerResponse = XmlParser.ParseQueryTaxpayerResponse(taxPayerDoc);
+        Assert.AreEqual("Code Sharp Kft.", taxPayerResponse.Taxpayer.TaxpayerShortName);
+    }
+
     [TestMethod]
     public async Task QueryTaxpayer()
     {

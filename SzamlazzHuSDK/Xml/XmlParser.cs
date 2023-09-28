@@ -70,10 +70,13 @@ public static class XmlParser
 
     public static QueryTaxpayerResponse ParseQueryTaxpayerResponse(XmlDocument doc)
     {
+        var xml = doc.OuterXml.Replace("ns2:", "").Replace("ns3:", "");
+        doc = new XmlDocument();
+        doc.LoadXml(xml);
         var root = doc.DocumentElement;
         var result = root["result"];
         if (result == null)
-            Console.WriteLine(root.OuterXml);
+            Console.WriteLine(doc.OuterXml);
         var response = new QueryTaxpayerResponse
         {
             Success = GetString(result, "funcCode") == "OK",
@@ -85,14 +88,14 @@ public static class XmlParser
         {
             return response;
         }
-        response.TaxpayerValid = GetBool(root, "ns2:taxpayerValidity");
+        response.TaxpayerValid = GetBool(root, "taxpayerValidity");
 
         if (!response.TaxpayerValid)
         {
             return response;
         }
 
-        response.Taxpayer = ParseTaxpayer(root["ns2:taxpayerData"]);
+        response.Taxpayer = ParseTaxpayer(root["taxpayerData"]);
         return response;
     }
 
@@ -133,19 +136,19 @@ public static class XmlParser
     {
         var taxpayer = new Taxpayer
         {
-            TaxpayerName = GetString(node, "ns2:taxpayerName"),
-            TaxNumberDetail = ParseTaxNumber(node["ns2:taxNumberDetail"]),
-            Incorporation = GetString(node, "ns2:incorporation")
+            TaxpayerName = GetString(node, "taxpayerName"),
+            TaxNumberDetail = ParseTaxNumber(node["taxNumberDetail"]),
+            Incorporation = GetString(node, "incorporation")
         };
 
-        if (node["ns2:taxpayerShortName"] != null)
-            taxpayer.TaxpayerShortName = GetString(node, "ns2:taxpayerShortName");
+        if (node["taxpayerShortName"] != null)
+            taxpayer.TaxpayerShortName = GetString(node, "taxpayerShortName");
 
-        if (node["ns2:vatGroupMembership"] != null)
-            taxpayer.VatGroupMembership = ParseTaxNumber(node["ns2:vatGroupMembership"]);
+        if (node["vatGroupMembership"] != null)
+            taxpayer.VatGroupMembership = ParseTaxNumber(node["vatGroupMembership"]);
 
-        if (node["ns2:taxpayerAddressList"] != null)
-            taxpayer.AddressList = ParseTaxpayerAddressList(node["ns2:taxpayerAddressList"]);
+        if (node["taxpayerAddressList"] != null)
+            taxpayer.AddressList = ParseTaxpayerAddressList(node["taxpayerAddressList"]);
 
         return taxpayer;
     }
@@ -177,32 +180,32 @@ public static class XmlParser
 
     private static TaxpayerAddressItem ParseTaxpayerAddressItem(XmlNode node)
     {
-        var address = node["ns2:taxpayerAddress"];
+        var address = node["taxpayerAddress"];
 
-        string streetAddress = GetString(address, "ns3:streetName") + " "
-                                + GetString(address, "ns3:publicPlaceCategory");
+        string streetAddress = GetString(address, "streetName") + " "
+                                + GetString(address, "publicPlaceCategory");
 
-        if (address["ns3:number"] != null)
-            streetAddress += " " + GetString(address, "ns3:number");
-        if (address["ns3:building"] != null)
-            streetAddress += "/" + GetString(address, "ns3:building");
-        if (address["ns3:staircase"] != null)
-            streetAddress += " " + GetString(address, "ns3:staircase") + " lh.";
-        if (address["ns3:floor"] != null)
-            streetAddress += " " + GetString(address, "ns3:floor") + " em.";
-        if (address["ns3:door"] != null)
-            streetAddress += " " + GetString(address, "ns3:door");
-        if (address["ns3:lotNumber"] != null)
-            streetAddress += "HRSZ: " + GetString(address, "ns3:lotNumber");
+        if (address["number"] != null)
+            streetAddress += " " + GetString(address, "number");
+        if (address["building"] != null)
+            streetAddress += "/" + GetString(address, "building");
+        if (address["staircase"] != null)
+            streetAddress += " " + GetString(address, "staircase") + " lh.";
+        if (address["floor"] != null)
+            streetAddress += " " + GetString(address, "floor") + " em.";
+        if (address["door"] != null)
+            streetAddress += " " + GetString(address, "door");
+        if (address["lotNumber"] != null)
+            streetAddress += "HRSZ: " + GetString(address, "lotNumber");
 
         return new TaxpayerAddressItem
         {
-            AddressType = GetString(node, "ns2:taxpayerAddressType"),
+            AddressType = GetString(node, "taxpayerAddressType"),
             Address = new Address
             {
-                Country = GetString(address, "ns3:countryCode"),
-                PostalCode = GetString(address, "ns3:postalCode"),
-                City = GetString(address, "ns3:city"),
+                Country = GetString(address, "countryCode"),
+                PostalCode = GetString(address, "postalCode"),
+                City = GetString(address, "city"),
                 StreetAddress = streetAddress
             }
         };
@@ -212,9 +215,9 @@ public static class XmlParser
     {
         return new TaxNumber
         {
-            TaxpayerId = GetString(node, "ns3:taxpayerId"),
-            VatCode = GetString(node, "ns3:vatCode"),
-            CountryCode = GetString(node, "ns3:countyCode")
+            TaxpayerId = GetString(node, "taxpayerId"),
+            VatCode = GetString(node, "vatCode"),
+            CountryCode = GetString(node, "countyCode")
         };
     }
 

@@ -1,0 +1,44 @@
+<QueryTaxpayerResponse xmlns="http://schemas.nav.gov.hu/OSA/3.0/api" xmlns:ns2="http://schemas.nav.gov.hu/NTCA/1.0/common" xmlns:ns3="http://schemas.nav.gov.hu/OSA/3.0/base" xmlns:ns4="http://schemas.nav.gov.hu/OSA/3.0/data">
+    <ns2:header>
+        <ns2:requestId>410426_rxshbssfh486xqt7q8nmj8</ns2:requestId>
+        <ns2:timestamp>2023-09-28T12:42:44.175Z</ns2:timestamp>
+        <ns2:requestVersion>3.0</ns2:requestVersion>
+        <ns2:headerVersion>1.0</ns2:headerVersion>
+    </ns2:header>
+    <ns2:result>
+        <ns2:funcCode>OK</ns2:funcCode>
+    </ns2:result>
+    <software>
+        <softwareId>SZAMLAZZHU34540973</softwareId>
+        <softwareName>Számlázz.hu</softwareName>
+        <softwareOperation>ONLINE_SERVICE</softwareOperation>
+        <softwareMainVersion>v20230928</softwareMainVersion>
+        <softwareDevName>Számlázz.hu szolgáltatásfejlesztés</softwareDevName>
+        <softwareDevContact>fejlesztes@szamlazz.hu</softwareDevContact>
+    </software>
+    <infoDate>2023-02-08T00:00:00.000Z</infoDate>
+    <taxpayerValidity>true</taxpayerValidity>
+    <taxpayerData>
+        <taxpayerName>CODE SHARP KORLÁTOLT FELELŐSSÉGŰ TÁRSASÁG</taxpayerName>
+        <taxpayerShortName>Code Sharp Kft.</taxpayerShortName>
+        <taxNumberDetail>
+            <ns3:taxpayerId>27273209</ns3:taxpayerId>
+            <ns3:vatCode>2</ns3:vatCode>
+            <ns3:countyCode>02</ns3:countyCode>
+        </taxNumberDetail>
+        <incorporation>ORGANIZATION</incorporation>
+        <taxpayerAddressList>
+        <taxpayerAddressItem>
+            <taxpayerAddressType>HQ</taxpayerAddressType>
+            <taxpayerAddress>
+                <ns3:countryCode>HU</ns3:countryCode>
+                <ns3:postalCode>7625</ns3:postalCode>
+                <ns3:city>PÉCS</ns3:city>
+                <ns3:streetName>VILMOS</ns3:streetName>
+                <ns3:publicPlaceCategory>UTCA</ns3:publicPlaceCategory>
+                <ns3:number>23</ns3:number>
+            </taxpayerAddress>
+        </taxpayerAddressItem>
+        </taxpayerAddressList>
+    </taxpayerData>
+</QueryTaxpayerResponse>
