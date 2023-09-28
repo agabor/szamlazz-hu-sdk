@@ -17,6 +17,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="NewtonSoft.JSON" Version="13.0.3" />
     <PackageReference Include="Scriban" Version="5.4.1" />
   </ItemGroup>
   <ItemGroup>

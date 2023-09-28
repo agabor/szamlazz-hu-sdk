@@ -51,7 +51,7 @@ namespace SzamlazzHuTest
             doc.Load("testGetInvoiceResponse.xml");
             var response = XmlParser.ParseGetInvoiceResponse(doc);
             Assert.AreEqual(new DateTime(2020, 11, 10), response.InvoiceHeader.DueDate);
-            Assert.AreEqual("Kovacs Bt.", response.Customer.Name);
+            Assert.AreEqual("Kovács & Társa Bt.", response.Customer.Name);
             Assert.AreEqual(new DateTime(2020, 09, 22) , response.PaymentItems[0].Date);
             Assert.AreEqual("transfer", response.PaymentItems[0].Title);
             Assert.AreEqual(15, response.PaymentItems[0].Amount);
@@ -145,7 +145,7 @@ namespace SzamlazzHuTest
             request.Seller.BankAccount = "11111111-22222222-33333333";
             request.Seller.EmailSubject = "Invoice notification";
             request.Seller.EmailText = "mail text";
-            request.Customer.Name = "Kovacs Bt.";
+            request.Customer.Name = "Kovács & Társa Bt.";
             request.Customer.CustomerAddress.Country = "Magyarország";
             request.Customer.CustomerAddress.PostalCode = "2030";
             request.Customer.CustomerAddress.City = "Érd";
