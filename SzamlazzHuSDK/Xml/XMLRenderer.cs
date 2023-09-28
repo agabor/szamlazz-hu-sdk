@@ -71,4 +71,13 @@ public class XMLRenderer
             }
         }
     }
+
+    internal static MemoryStream RenderRequest(QueryTaxpayerRequest request)
+    {
+        string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "queryTaxpayerRequest.sbn");
+        var template = Template.Parse(File.ReadAllText(path), path);
+        var xmlString = template.Render(new { Request = request });
+        return CreateMemoryStream(xmlString);
+    }
+
 }

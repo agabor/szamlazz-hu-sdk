@@ -107,7 +107,18 @@ public class SzamlazzHuApi
             return doc;
         }
     }
+    public async Task<QueryTaxpayerResponse> QueryTaxpayer(QueryTaxpayerRequest request)
+    {
+        using (var xmlStream = XMLRenderer.RenderRequest(request))
+        {
+            using (var requestStream = CompressXmlStream(xmlStream))
+            {
+                var doc = await HttpUploadXmlFile("https://www.szamlazz.hu/szamla/", requestStream.ToArray(), "action-szamla_agent_taxpayer");
+                return XmlParser.ParseQueryTaxpayerResponse(doc);
+            }
+        }
 
+    }
     private static void WriteString(Stream rs, string text)
     {
         byte[] textbytes = Encoding.UTF8.GetBytes(text);
