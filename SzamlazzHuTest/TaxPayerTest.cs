@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SzamlazzHu;
 
@@ -8,7 +9,7 @@ namespace SzamlazzHuTest;
 public class TaxPayerTest
 {
     [TestMethod]
-    public async void QueryTaxpayer()
+    public async Task QueryTaxpayer()
     {
         var api = new SzamlazzHuApi();
         string apiKey = Environment.GetEnvironmentVariable("SZAMLAZZ_HU_KEY");
