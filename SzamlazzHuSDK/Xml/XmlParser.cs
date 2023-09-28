@@ -72,6 +72,8 @@ public static class XmlParser
     {
         var root = doc.DocumentElement;
         var result = root["result"];
+        if (result == null)
+            Console.WriteLine(root.OuterXml);
         var response = new QueryTaxpayerResponse
         {
             Success = GetString(result, "funcCode") == "OK",
