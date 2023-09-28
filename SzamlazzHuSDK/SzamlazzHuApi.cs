@@ -40,7 +40,7 @@ public class SzamlazzHuApi
         var doc = await HttpUploadXmlFile("https://www.szamlazz.hu/szamla/", requestStream.ToArray(), "action-szamla_agent_dijbekero_torlese");
         return XmlParser.ParseDeleteInvoiceResponse(doc);
     }
-
+  
     private static MemoryStream CompressXmlStream(MemoryStream xmlStream)
     {
         var readerSettings = new XmlReaderSettings

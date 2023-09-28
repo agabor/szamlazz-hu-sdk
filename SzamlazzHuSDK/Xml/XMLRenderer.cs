@@ -31,7 +31,7 @@ public class XMLRenderer
         var xmlString = template.Render(new { Request = EscapeRequest(request) });
         return CreateMemoryStream(xmlString);
     }
-
+  
     private static MemoryStream CreateMemoryStream(string xmlString)
     {
         var stream = new MemoryStream();
