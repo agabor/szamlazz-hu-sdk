@@ -11,6 +11,7 @@
     <RepositoryType>git</RepositoryType> 
     <PackageProjectUrl>https://github.com/agabor/szamlazz-hu-sdk</PackageProjectUrl>
     <PackageTags>Billing;Számlázz.hu</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -22,11 +23,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="logo.png" Pack="true" PackagePath="" />
-    <None Include="../README.md" Pack="true" PackagePath="" />
+    <None Include="README.md" Pack="true" PackagePath="" />
   </ItemGroup>
-  <PropertyGroup>
-    <PackageReadmeFile>../README.md</PackageReadmeFile>
-  </PropertyGroup>
   <ItemGroup>
     <Content Include="*.sbn">
         <Pack>true</Pack>

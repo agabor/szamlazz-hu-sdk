@@ -72,8 +72,14 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 8.0.x
+    - name: Restore
+      run: dotnet restore
+      working-directory: ./SzamlazzHuSDK
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+      working-directory: ./SzamlazzHuSDK
     - name: Pack
-      run: dotnet clean ; dotnet pack --configuration Release --output nupkg
+      run: dotnet pack --configuration Release --no-build --output nupkg
       working-directory: ./SzamlazzHuSDK
     - name: Push
       run: dotnet nuget push nupkg/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
