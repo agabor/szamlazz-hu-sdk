@@ -22,7 +22,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="logo.png" Pack="true" PackagePath="" />
+    <None Include="../README.md" Pack="true" PackagePath="" />
   </ItemGroup>
+  <PropertyGroup>
+    <PackageReadmeFile>../README.md</PackageReadmeFile>
+  </PropertyGroup>
   <ItemGroup>
     <Content Include="*.sbn">
         <Pack>true</Pack>
