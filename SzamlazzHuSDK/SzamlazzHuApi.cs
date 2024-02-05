@@ -4,6 +4,8 @@ using System.Net;
 using System.Text;
 using System.Xml;
 using System.Threading.Tasks;
+using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace SzamlazzHu;
 
@@ -61,52 +63,48 @@ public class SzamlazzHuApi
     private async Task<XmlDocument> HttpUploadXmlFile(string url, byte[] file, string paramName)
     {
         string boundary = $"---------------------------{DateTime.Now.Ticks.ToString("x")}";
+        var content = new MultipartFormDataContent(boundary);
 
-        HttpWebRequest wr = (HttpWebRequest)WebRequest.Create(url);
-        wr.ContentType = $"multipart/form-data; boundary={boundary}";
-        wr.Method = "POST";
-        wr.KeepAlive = true;
-        wr.Credentials = CredentialCache.DefaultCredentials;
+        var fileContent = new ByteArrayContent(file);
+        fileContent.Headers.ContentType = MediaTypeHeaderValue.Parse("text/xml");
+        content.Add(fileContent, paramName, "data.xml");
 
-        Stream requstStream = wr.GetRequestStream();
+        using var client = new HttpClient();
+        var response = await client.PostAsync(url, content);
 
-        WriteString(requstStream, $"\r\n--{boundary}\r\n");
-
-        string header = $"Content-Disposition: form-data; name=\"{paramName}\"; filename=\"data.xml\"\nContent-Type: text/xml\r\n\r\n";
-        WriteString(requstStream, header);
-
-        requstStream.Write(file, 0, file.Length);
-
-        WriteString(requstStream, $"\r\n--{boundary}--\r\n");
-        requstStream.Close();
-
-        using var response = await wr.GetResponseAsync();
-        using var reader = new StreamReader(response.GetResponseStream());
-        string xml = reader.ReadToEnd();
-        try
+        if (response.IsSuccessStatusCode)
         {
-            var doc = new XmlDocument();
-            doc.LoadXml(xml);
-            return doc;
+            var xml = await response.Content.ReadAsStringAsync();
+            try
+            {
+                var doc = new XmlDocument();
+                doc.LoadXml(xml);
+                return doc;
+            }
+            catch
+            {
+                if (paramName != "action-szamla_agent_st")
+                    return null;
+
+                var doc = new XmlDocument();
+                var root = doc.CreateElement("root");
+                var agentResponseElement = doc.CreateElement("AgentResponse");
+                var invoiceNumberElement = doc.CreateElement("InvoiceNumber");
+                var elements = System.Web.HttpUtility.HtmlDecode(xml.TrimEnd('\n')).Split(';');
+                agentResponseElement.AppendChild(doc.CreateTextNode(elements[0]));
+                invoiceNumberElement.AppendChild(doc.CreateTextNode(elements[1]));
+                root.AppendChild(agentResponseElement);
+                root.AppendChild(invoiceNumberElement);
+                doc.AppendChild(root);
+                return doc;
+            }
         }
-        catch
+        else
         {
-            if (paramName != "action-szamla_agent_st")
-                return null;
-                
-            var doc = new XmlDocument();
-            var root = doc.CreateElement("root");
-            var agentResponseElement = doc.CreateElement("AgentResponse");
-            var invoiceNumberElement = doc.CreateElement("InvoiceNumber");
-            var elements = System.Web.HttpUtility.HtmlDecode(xml.TrimEnd('\n')).Split(';');
-            agentResponseElement.AppendChild(doc.CreateTextNode(elements[0]));
-            invoiceNumberElement.AppendChild(doc.CreateTextNode(elements[1]));
-            root.AppendChild(agentResponseElement);
-            root.AppendChild(invoiceNumberElement);
-            doc.AppendChild(root);
-            return doc;
+            throw new Exception($"Error: {response.StatusCode}");
         }
     }
+
     public async Task<QueryTaxpayerResponse> QueryTaxpayer(QueryTaxpayerRequest request)
     {
         using (var xmlStream = XMLRenderer.RenderRequest(request))
