@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <PackageId>szamlazz-hu-sdk</PackageId>
-    <Version>1.5.2</Version>
+    <Version>1.6.0</Version>
     <Authors>Gabor Angyal</Authors>
     <Description>SDK for the Számlázz.hu billing software</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -13,7 +13,7 @@
     <PackageTags>Billing;Számlázz.hu</PackageTags>
   </PropertyGroup>
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
