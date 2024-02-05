@@ -36,7 +36,7 @@ jobs:
 
   release:
     needs: build
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/master_'
     runs-on: ubuntu-latest
 
     steps:
@@ -72,6 +72,9 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 8.0.x
+    - name: Restore
+      run: dotnet restore
+      working-directory: ./SzamlazzHuSDK
     - name: Build
       run: dotnet build --configuration Release --no-restore
       working-directory: ./SzamlazzHuSDK
