@@ -33,3 +33,51 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         path-to-lcov: SzamlazzHuTest/coverage.info
+
+  release:
+    needs: build
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 8.0.x
+    - name: Extract version
+      id: get_version
+      run: |
+        VERSION=$(grep -oP '(?<=<Version>).*(?=</Version>)' ./SzamlazzHuSDK/SzamlazzHuSDK.csproj)
+        echo "::set-output name=VERSION::$VERSION"
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ steps.get_version.outputs.VERSION }}
+        release_name: Release ${{ steps.get_version.outputs.VERSION }}
+        draft: false
+        prerelease: false
+
+  package:
+    needs: build
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 8.0.x
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+      working-directory: ./SzamlazzHuSDK
+    - name: Pack
+      run: dotnet pack --configuration Release --no-build --output nupkg
+      working-directory: ./SzamlazzHuSDK
+    - name: Push
+      run: dotnet nuget push *.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+      working-directory: ./SzamlazzHuSDK
