@@ -82,5 +82,5 @@ jobs:
       run: dotnet pack --configuration Release --no-build --output nupkg
       working-directory: ./SzamlazzHuSDK
     - name: Push
-      run: dotnet nuget push nupkg/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+      run: dotnet nuget push nupkg/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json  --skip-duplicate
       working-directory: ./SzamlazzHuSDK
