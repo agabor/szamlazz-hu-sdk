@@ -57,18 +57,25 @@ public class XMLRenderer
         return jObj.ToObject<T>();
     }
 
-    private static void EscapeJson(JObject jObj)
+    private static void EscapeJson(JToken token)
     {
-        foreach (var prop in jObj.Properties())
+        if (token.Type == JTokenType.Object)
         {
-            if (prop.Value.Type == JTokenType.String)
+            foreach (var property in ((JObject)token).Properties())
             {
-                prop.Value = SecurityElement.Escape(prop.Value.ToString());
+                EscapeJson(property.Value);
             }
-            else if (prop.Value.Type == JTokenType.Object)
+        }
+        else if (token.Type == JTokenType.Array)
+        {
+            foreach (var item in token.Children())
             {
-                EscapeJson((JObject)prop.Value);
+                EscapeJson(item);
             }
+        }
+        else if (token.Type == JTokenType.String)
+        {
+            token.Replace(JValue.CreateString(SecurityElement.Escape(token.ToString())));
         }
     }
 

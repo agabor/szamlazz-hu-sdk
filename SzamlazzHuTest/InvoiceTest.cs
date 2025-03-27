@@ -162,7 +162,7 @@ public class InvoiceTest
         request.Customer.Comment = "Call extension 214 from the reception";
         request.Items = new List<InvoiceItem> {
             new InvoiceItem {
-                Name = "Elado izé",
+                Name = "Elado izé & bizé",
                 Quantity = 1,
                 UnitOfQuantity = "db",
                 UnitPrice = 10000,
