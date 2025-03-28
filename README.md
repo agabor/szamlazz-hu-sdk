@@ -1,4 +1,4 @@
-# .NET SDK for Számlázz.hu [![Build Status](https://github.com/codesharp-hu/szamlazz-hu-sdk/workflows/Test/badge.svg?branch=master)](https://github.com/BootGen/BootGen/actions) [![Coverage Status](https://coveralls.io/repos/github/codesharp-hu/szamlazz-hu-sdk/badge.svg?branch=master)](https://coveralls.io/github/codesharp-hu/szamlazz-hu-sdk?branch=master) [![NuGet](https://img.shields.io/nuget/v/szamlazz-hu-sdk.svg)](https://www.nuget.org/packages/szamlazz-hu-sdk/)
+# .NET SDK for Számlázz.hu [![Build Status](https://github.com/codesharp-hu/szamlazz-hu-sdk/workflows/Test/badge.svg?branch=master)](https://github.com/agabor/szamlazz-hu-sdk/actions) [![Coverage Status](https://coveralls.io/repos/github/codesharp-hu/szamlazz-hu-sdk/badge.svg?branch=master)](https://coveralls.io/github/codesharp-hu/szamlazz-hu-sdk?branch=master) [![NuGet](https://img.shields.io/nuget/v/szamlazz-hu-sdk.svg)](https://www.nuget.org/packages/szamlazz-hu-sdk/)
 
 ## Minimal working example
 
