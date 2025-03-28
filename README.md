@@ -15,6 +15,9 @@ request.Customer.CustomerAddress.City = "Budapest";
 request.Customer.CustomerAddress.StreetAddress = "Tárnoki út 23.";
 request.Customer.TaxNumber = "12345678-1-42";
 
+// Optional: Set reference to a pro forma invoice number
+request.Header.ProFormaInvoiceNumber = "D-2025-001";
+
 request.Items = new List<InvoiceItem> {
     new InvoiceItem {
         Name = "Something we sell",

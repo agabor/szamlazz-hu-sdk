@@ -53,7 +53,7 @@
                                           did we use to calculate VAT -->
         <rendelesSzam>{{ request.header.order_number }}</rendelesSzam>
         <!-- order number -->
-        <dijbekeroSzamlaszam></dijbekeroSzamlaszam>
+        <dijbekeroSzamlaszam>{{ request.header.pro_forma_invoice_number }}</dijbekeroSzamlaszam>
         <!-- reference to pro forma invoice number -->
         <elolegszamla>{{ request.header.deposit_invoice }}</elolegszamla>
         <!-- deposit invoice -->

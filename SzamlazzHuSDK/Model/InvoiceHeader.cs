@@ -18,6 +18,7 @@ namespace SzamlazzHu
         public string Bank { get; set; } = "MNB";
         public decimal ExchangeRate { get; set; }
         public string OrderNumber { get; set; }
+        public string ProFormaInvoiceNumber { get; set; }
         public bool DepositInvoice { get; set; }
         public bool FinalBill { get; set; }
         public bool CorrectionInvoice { get; set; }
