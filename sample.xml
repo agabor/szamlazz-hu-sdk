@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmlszamla xmlns="http://www.szamlazz.hu/xmlszamla" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.szamlazz.hu/xmlszamla https://www.szamlazz.hu/szamla/docs/xsds/agent/xmlszamla.xsd">
+<!-- A számla alapbeállításai -->
+    <beallitasok>
+        <!-- Számla Agent kulcsot a számlázz.hu-ra belépve tudsz generálni -->
+        <szamlaagentkulcs>Please fill!</szamlaagentkulcs>
+        <eszamla>true</eszamla>
+        <!-- „true” ha e-számlát kell létrehozni -->
+        <szamlaLetoltes>true</szamlaLetoltes>
+        <!-- „true” ha szeretnéd a választ PDF számlaként megkapni -->
+        <valaszVerzio>1</valaszVerzio>
+        <!-- 1: egyszerű szöveges vagy PDF válasz.
+             2: XML válasz, ha a PDF-et is kéred, az XML-ben kerül elküldésre base64 kódolással -->
+        <aggregator></aggregator>
+        <!-- ez a tag kihagyható -->
+        <szamlaKulsoAzon></szamlaKulsoAzon> <!--A számla ezzel a kulccsal azonosítható a harmadik fél rendszerében (a rendszer, amely használja a Számla Agentet): később ezzel a kulccsal le lehet kérdezni a számlát -->
+    </beallitasok>
+    <!-- fejléc adatok -->
+    <fejlec>
+        <teljesitesDatum>2025-01-20</teljesitesDatum>
+        <!-- teljesítés dátuma -->
+        <fizetesiHataridoDatum>2025-01-20</fizetesiHataridoDatum>
+        <!-- fizetési határidő -->
+        <fizmod>Átutalás</fizmod>
+        <!-- fizetési mód: látható, ha a számlát böngészőből készíted -->
+        <penznem>HUF</penznem>
+        <!-- pénznem: látható, ha a számlát böngészőből készíted -->
+        <szamlaNyelve>hu</szamlaNyelve>
+        <!-- számla nyelve, lehet: de, en, it, hu, fr, ro, sk, hr -->
+        <megjegyzes>Invoce comment</megjegyzes>
+        <!-- számla megjegyzése -->
+        <arfolyamBank>MNB</arfolyamBank>
+        <!-- bank neve: ha a számla nem HUF-ban van, fel kell tüntetni, melyik bank árfolyamát használtuk az ÁFA kiszámításához -->
+        <arfolyam>0.0</arfolyam>
+        <!-- árfolyam: ha a számla nem HUF-ban van, fel kell tüntetni, melyik bank árfolyamát használtuk az ÁFA kiszámításához -->
+        <rendelesSzam></rendelesSzam>
+        <!-- rendelési szám -->
+        <dijbekeroSzamlaszam></dijbekeroSzamlaszam>
+        <!-- hivatkozás a díjbekérő számlaszámra -->
+        <elolegszamla>false</elolegszamla>
+        <!-- előlegszámla -->
+        <vegszamla>false</vegszamla>
+        <!-- végszámla (előlegszámla után) -->
+        <helyesbitoszamla>false</helyesbitoszamla>
+        <!-- helyesbítő számla -->
+        <helyesbitettSzamlaszam></helyesbitettSzamlaszam>
+        <!-- a helyesbített számla száma -->
+        <dijbekero>false</dijbekero>
+        <!-- díjbekérő számla -->
+        <szamlaszamElotag></szamlaszamElotag>
+        <!-- A számlázz.hu-ban használható Előtagok egyike - Beállítások / Előtagok -->
+    </fejlec>
+    <elado>
+        <!-- A kereskedő adatai -->
+        <bank>BB</bank>
+        <!-- bank neve -->
+        <bankszamlaszam>11111111-22222222-33333333</bankszamlaszam>
+        <!-- bankszámlaszám -->
+        <emailReplyto></emailReplyto>
+        <!-- válaszcím (e-mail) -->
+        <emailTargy>Invoice notification</emailTargy>
+        <!-- e-mail tárgya -->
+        <emailSzoveg>mail text</emailSzoveg>
+        <!-- e-mail szövege -->
+    </elado>
+    <vevo>
+        <!-- Vevő adatai -->
+        <nev>Kovacs Bt.</nev>
+        <!-- név -->
+        <irsz>2030</irsz>
+        <!-- irányítószám -->
+        <telepules>Érd</telepules>
+        <!-- város -->
+        <cim>Tárnoki út 23.</cim>
+        <!-- cím -->
+        <email>buyer@example.com</email>
+        <!-- e-mail cím, ha megadja, erre a címre elküldjük a számlát -->
+        <sendEmail>false</sendEmail>
+        <!-- küldjük-e el e-mailben az ügyfélnek (e-mail) -->
+        <adoszam>12345678-1-42</adoszam>
+        <!-- adószám/adóazonosító jel -->
+        <postazasiNev>Kovács Bt. mailing name</postazasiNev>
+        <!-- szállítási név/postai név -->
+        <postazasiIrsz>2040</postazasiIrsz>
+        <!-- szállítási irányítószám/postai irányítószám -->
+        <postazasiTelepules>Budaörs</postazasiTelepules>
+        <!-- szállítási város/postai város -->
+        <postazasiCim>Szivárvány utca 8.</postazasiCim>
+        <!-- szállítási cím/postai cím -->
+        <azonosito>1234</azonosito>
+        <!-- azonosító -->
+        <telefonszam>Tel:+3630-555-55-55, Fax:+3623-555-555</telefonszam>
+        <!-- telefonszám -->
+        <megjegyzes>Call extension 214 from the reception</megjegyzes>
+        <!-- megjegyzés -->
+    </vevo>
+    <fuvarlevel>
+        <!-- fuvarlevél/szállítólevél. ha nem kell, hagyd üresen -->
+        <uticel></uticel>
+        <futarSzolgalat></futarSzolgalat>
+    </fuvarlevel>
+    <tetelek>
+        <!-- számlán lévő tételek -->
+        <tetel>
+            <!-- 1. tétel -->
+            <megnevezes>Elado izé</megnevezes>
+            <!-- megnevezés -->
+            <mennyiseg>1.0</mennyiseg>
+            <!-- mennyiség -->
+            <mennyisegiEgyseg>db</mennyisegiEgyseg>
+            <!-- mennyiségi egység -->
+            <nettoEgysegar>10000</nettoEgysegar>
+            <!-- nettó egységár -->
+            <afakulcs>27</afakulcs>
+            <!-- ÁFA kulcs -->
+            <nettoErtek>10000.0</nettoErtek>
+            <!-- nettó érték -->
+            <afaErtek>2700.0</afaErtek>
+            <!-- ÁFA érték -->
+            <bruttoErtek>12700.0</bruttoErtek>
+            <!-- bruttó érték -->
+            <megjegyzes>lorem ipsum</megjegyzes>
+            <!-- tétel megjegyzése -->
+        </tetel>
+        <tetel>
+            <!-- 2. tétel, részletek azonosak a fentiekkel -->
+            <megnevezes>Elado izé 2</megnevezes>
+            <mennyiseg>2.0</mennyiseg>
+            <mennyisegiEgyseg>db</mennyisegiEgyseg>
+            <nettoEgysegar>10000</nettoEgysegar>
+            <afakulcs>27</afakulcs>
+            <nettoErtek>20000.0</nettoErtek>
+            <afaErtek>5400.0</afaErtek>
+            <bruttoErtek>25400.0</bruttoErtek>
+            <megjegyzes>lorem ipsum 2</megjegyzes>
+        </tetel>
+    </tetelek>
+</xmlszamla>
