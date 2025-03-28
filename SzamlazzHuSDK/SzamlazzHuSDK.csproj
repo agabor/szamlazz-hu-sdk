@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <PackageId>szamlazz-hu-sdk</PackageId>
-    <Version>1.6.1</Version>
+    <Version>1.7.0</Version>
     <Authors>Gabor Angyal</Authors>
     <Description>SDK for the Számlázz.hu billing software</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -14,12 +14,12 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="NewtonSoft.JSON" Version="13.0.3" />
-    <PackageReference Include="Scriban" Version="5.9.0" />
+    <PackageReference Include="Scriban" Version="6.0.0" />
   </ItemGroup>
   <ItemGroup>
     <None Include="logo.png" Pack="true" PackagePath="" />
