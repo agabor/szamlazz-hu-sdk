@@ -234,7 +234,10 @@ public static class XmlParser
             FeeCollection = GetString(node, "tipus").ToLower() == "d",
             InvoiceNumberPrefix = GetPrefix(GetString(node, "szamlaszam")),
             OrderNumber = GetString(node, "rendelesszam"),
-            InvoiceTemplate = GetString(node, "szamlaSablon")
+            InvoiceTemplate = GetString(node, "szamlaSablon"),
+            Currency = GetString(node, "devizanem"),
+            InvoiceType = GetString(node, "tipus"),
+            ReferenceInvoiceNumber = GetString(node, "hivszamlaszam"),
         };
     }
 
