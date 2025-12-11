@@ -4,6 +4,9 @@ namespace SzamlazzHu
 {
     public class GetInvoiceResponse
     {
+        public bool Success { get; set; }
+        public string ErrorCode { get; set; }
+        public string ErrorMessage { get; set; }
         public byte[] InvoicePdf { get; internal set; }
         public InvoiceHeader InvoiceHeader { get; set; }
         public Seller Seller { get; set; }
