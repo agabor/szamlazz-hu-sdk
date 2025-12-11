@@ -7,6 +7,7 @@ namespace SzamlazzHu
 {
     public class InvoiceHeader
     {
+        public string InvoiceNumber { get; set; }
         public DateTime CompletionDate { get; set; } = DateTime.Now;
         public DateTime IssueDate { get; set; } = DateTime.Now;
         public DateTime DueDate { get; set; } = DateTime.Now;

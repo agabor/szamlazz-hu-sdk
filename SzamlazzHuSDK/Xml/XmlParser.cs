@@ -114,8 +114,12 @@ public static class XmlParser
     {
         return new Seller
         {
+            Name = GetString(node, "nev"),
+            SellerAddress = ParseAddress(node["cim"]),
             BankName = GetString(node["bank"], "nev"),
-            BankAccount = GetString(node["bank"], "bankszamla")
+            BankAccount = GetString(node["bank"], "bankszamla"),
+            TaxNumber = GetString(node, "adoszam"),
+            EuTaxNumber = GetString(node, "adoszameu"),
         };
     }
 
@@ -225,6 +229,7 @@ public static class XmlParser
     {
         return new InvoiceHeader
         {
+            InvoiceNumber = GetString(node, "szamlaszam"),
             CompletionDate = GetDate(node, "telj"),
             IssueDate = GetDate(node, "kelt"),
             DueDate = GetDate(node, "fizh"),
