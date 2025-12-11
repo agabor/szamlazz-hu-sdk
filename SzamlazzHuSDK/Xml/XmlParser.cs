@@ -41,9 +41,24 @@ public static class XmlParser
     public static GetInvoiceResponse ParseGetInvoiceResponse(XmlDocument doc)
     {
         var root = doc.DocumentElement;
+
+        if (bool.TryParse(GetString(root, "sikeres"), out bool value)
+            && !value)
+        {
+            string errorCode = GetString(root, "hibakod");
+            string errorMessage = GetString(root, "hibauzenet");
+            return new GetInvoiceResponse
+            {
+                Success = false,
+                ErrorCode = errorCode,
+                ErrorMessage = errorMessage
+            };
+        }
+
         string pdfString = GetString(root, "pdf");
         var response = new GetInvoiceResponse
         {
+            Success = true,
             InvoicePdf = pdfString != null ? Convert.FromBase64String(pdfString) : null
         };            
 
