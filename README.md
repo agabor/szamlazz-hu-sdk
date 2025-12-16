@@ -2,7 +2,7 @@
 
 ## Compatibility
 
-This SDK supports .NET 9.0 and later versions.
+This SDK supports .NET 8.0, 9.0 and 10.0.
 
 ## Minimal working example
 
