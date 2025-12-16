@@ -18,8 +18,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NewtonSoft.JSON" Version="13.0.3" />
-    <PackageReference Include="Scriban" Version="6.0.0" />
+    <PackageReference Include="NewtonSoft.JSON" Version="13.0.4" />
+    <PackageReference Include="Scriban" Version="6.5.2" />
   </ItemGroup>
   <ItemGroup>
     <None Include="logo.png" Pack="true" PackagePath="" />
