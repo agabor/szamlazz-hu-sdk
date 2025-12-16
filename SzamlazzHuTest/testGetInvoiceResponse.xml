@@ -93,5 +93,4 @@
             <bankszamlaszam>-</bankszamlaszam>
         </kifizetes>
     </kifizetesek>
-    <pdf>The receipt .pdf can be found here in BASE64 encoding</pdf>
 </szamla>

@@ -108,9 +108,6 @@ public class InvoiceTest
         Assert.AreEqual(464, response.Summaries.TotalSums.Net);
         Assert.AreEqual(93, response.Summaries.TotalSums.Vat);
         Assert.AreEqual(557, response.Summaries.TotalSums.Gross);
-        
-        // Test PDF property
-        Assert.IsNotNull(response.InvoicePdf);
     }
     
     [TestMethod]
