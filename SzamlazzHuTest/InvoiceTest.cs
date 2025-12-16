@@ -81,7 +81,7 @@ public class InvoiceTest
         Assert.AreEqual("1234", response.Customer.CustomerAddress.StreetAddress);
         
         // Test InvoiceItems (tetelek) properties
-        Assert.AreEqual(1, response.InvoiceItems.Count);
+        Assert.HasCount(1, response.InvoiceItems);
         Assert.AreEqual("Apple", response.InvoiceItems[0].Name);
         Assert.AreEqual(1, response.InvoiceItems[0].Quantity);
         Assert.AreEqual("pieces", response.InvoiceItems[0].UnitOfQuantity);
@@ -93,7 +93,7 @@ public class InvoiceTest
         Assert.AreEqual("Apple comment", response.InvoiceItems[0].Comment);
         
         // Test PaymentItems (kifizetesek) properties
-        Assert.AreEqual(1, response.PaymentItems.Count);
+        Assert.HasCount(1, response.PaymentItems);
         Assert.AreEqual(new DateTime(2020, 09, 22), response.PaymentItems[0].Date);
         Assert.AreEqual("transfer", response.PaymentItems[0].Title);
         Assert.AreEqual(15, response.PaymentItems[0].Amount);
