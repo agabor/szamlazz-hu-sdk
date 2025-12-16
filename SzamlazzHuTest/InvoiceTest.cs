@@ -99,9 +99,7 @@ public class InvoiceTest
         Assert.AreEqual(request.Header.IssueDate.Date, getInvoiceResponse.InvoiceHeader.IssueDate.Date);
         Assert.AreEqual(request.Header.Language, getInvoiceResponse.InvoiceHeader.Language);
         Assert.AreEqual(request.Header.PaymentType, getInvoiceResponse.InvoiceHeader.PaymentType);
-        // TODO: InvoiceTemplate is not returned by the API yet
-        //Assert.AreEqual(request.Header.InvoiceTemplate, getInvoiceResponse.InvoiceHeader.InvoiceTemplate);
-        Assert.AreEqual(getInvoiceResponse.InvoiceHeader.InvoiceTemplate, null);
+        Assert.AreEqual(null, getInvoiceResponse.InvoiceHeader.InvoiceTemplate);
         Assert.AreEqual(request.Customer.Name, getInvoiceResponse.Customer.Name);
         Assert.AreEqual(request.Customer.CustomerAddress.Country, getInvoiceResponse.Customer.CustomerAddress.Country);
         Assert.AreEqual(request.Customer.CustomerAddress.PostalCode, getInvoiceResponse.Customer.CustomerAddress.PostalCode);
@@ -110,7 +108,7 @@ public class InvoiceTest
         Assert.AreEqual(request.Customer.EmailAddress, getInvoiceResponse.Customer.EmailAddress);
         Assert.AreEqual(request.Customer.Identification, getInvoiceResponse.Customer.Identification);
         Assert.AreEqual(request.Customer.TaxNumber, getInvoiceResponse.Customer.TaxNumber);
-        Assert.AreEqual(request.Items.Count, getInvoiceResponse.InvoiceItems.Count);
+        Assert.HasCount(request.Items.Count, getInvoiceResponse.InvoiceItems);
         for (int i = 0; i < request.Items.Count; ++i)
         {
             Assert.AreEqual(request.Items[i].GrossAmount, getInvoiceResponse.InvoiceItems[i].GrossAmount);
