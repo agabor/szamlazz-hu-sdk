@@ -99,7 +99,7 @@ public class InvoiceTest
         Assert.AreEqual(request.Header.IssueDate.Date, getInvoiceResponse.InvoiceHeader.IssueDate.Date);
         Assert.AreEqual(request.Header.Language, getInvoiceResponse.InvoiceHeader.Language);
         Assert.AreEqual(request.Header.PaymentType, getInvoiceResponse.InvoiceHeader.PaymentType);
-        Assert.AreEqual(null, getInvoiceResponse.InvoiceHeader.InvoiceTemplate);
+        Assert.IsNull(getInvoiceResponse.InvoiceHeader.InvoiceTemplate);
         Assert.AreEqual(request.Customer.Name, getInvoiceResponse.Customer.Name);
         Assert.AreEqual(request.Customer.CustomerAddress.Country, getInvoiceResponse.Customer.CustomerAddress.Country);
         Assert.AreEqual(request.Customer.CustomerAddress.PostalCode, getInvoiceResponse.Customer.CustomerAddress.PostalCode);
