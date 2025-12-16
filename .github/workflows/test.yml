@@ -26,12 +26,6 @@ jobs:
       
     - name: Test with coverage
       run: dotnet test --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=./lcov.info
-      
-    - name: Coveralls
-      uses: coverallsapp/github-action@v2
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: ./SzamlazzHuTest/lcov.info
 
   test9:
     runs-on: ubuntu-latest
@@ -52,12 +46,6 @@ jobs:
       
     - name: Test with coverage
       run: dotnet test --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=./lcov.info
-      
-    - name: Coveralls
-      uses: coverallsapp/github-action@v2
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: ./SzamlazzHuTest/lcov.info
 
   test10:
     runs-on: ubuntu-latest
@@ -83,4 +71,4 @@ jobs:
       uses: coverallsapp/github-action@v2
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: ./SzamlazzHuTest/lcov.info
+        path-to-lcov: ./SzamlazzHuTest/lcov.net10.0.info
