@@ -50,20 +50,64 @@ public class InvoiceTest
         var doc = new XmlDocument();
         doc.Load("testGetInvoiceResponse.xml");
         var response = XmlParser.ParseGetInvoiceResponse(doc);
-        Assert.AreEqual(new DateTime(2020, 11, 10), response.InvoiceHeader.DueDate);
-        Assert.AreEqual("Kovács & Társa Bt.", response.Customer.Name);
-        Assert.AreEqual(new DateTime(2020, 09, 22) , response.PaymentItems[0].Date);
+        
+        // Test InvoiceHeader (alap) properties
+        Assert.AreEqual(new DateTime(2024, 10, 09), response.InvoiceHeader.IssueDate);
+        Assert.AreEqual(new DateTime(2024, 10, 09), response.InvoiceHeader.CompletionDate);
+        Assert.AreEqual(new DateTime(2024, 10, 09), response.InvoiceHeader.DueDate);
+        Assert.AreEqual("D-LOLO-66", response.InvoiceHeader.InvoiceNumber);
+        Assert.AreEqual("credit_card", response.InvoiceHeader.PaymentType);
+        Assert.AreEqual("D", response.InvoiceHeader.InvoiceType);
+        Assert.AreEqual("HUF", response.InvoiceHeader.Currency);
+        Assert.AreEqual("LOLO", response.InvoiceHeader.InvoiceNumberPrefix);
+        Assert.AreEqual(InvoiceLanguage.Hungarian, response.InvoiceHeader.Language);
+        
+        // Test Seller (szallito) properties
+        Assert.AreEqual("Lorem ipsum dolor sit amet, consectetur cs amet., 512356234", response.Seller.Name);
+        Assert.AreEqual("202 336 0856", response.Seller.TaxNumber);
+        Assert.AreEqual("DPH:SK2023360856", response.Seller.EuTaxNumber);
+        Assert.AreEqual("UniCredit Bank Hungary Zrt.", response.Seller.BankName);
+        Assert.AreEqual("Hungary", response.Seller.SellerAddress.Country);
+        Assert.AreEqual("1086", response.Seller.SellerAddress.PostalCode);
+        Assert.AreEqual("Budapest", response.Seller.SellerAddress.City);
+        Assert.AreEqual("Szerdahelyi utca 4-8", response.Seller.SellerAddress.StreetAddress);
+        
+        // Test Customer (vevo) properties
+        Assert.AreEqual("Customer name", response.Customer.Name);
+        Assert.AreEqual("example@example.com", response.Customer.EmailAddress);
+        Assert.AreEqual("Hungary", response.Customer.CustomerAddress.Country);
+        Assert.AreEqual("1324", response.Customer.CustomerAddress.PostalCode);
+        Assert.AreEqual("Debrecen", response.Customer.CustomerAddress.City);
+        Assert.AreEqual("1234", response.Customer.CustomerAddress.StreetAddress);
+        
+        // Test InvoiceItems (tetelek) properties
+        Assert.HasCount(1, response.InvoiceItems);
+        Assert.AreEqual("Apple", response.InvoiceItems[0].Name);
+        Assert.AreEqual(1, response.InvoiceItems[0].Quantity);
+        Assert.AreEqual("pieces", response.InvoiceItems[0].UnitOfQuantity);
+        Assert.AreEqual(380, response.InvoiceItems[0].UnitPrice);
+        Assert.AreEqual("20", response.InvoiceItems[0].VatRate);
+        Assert.AreEqual(380, response.InvoiceItems[0].NetPrice);
+        Assert.AreEqual(76, response.InvoiceItems[0].VatAmount);
+        Assert.AreEqual(456, response.InvoiceItems[0].GrossAmount);
+        Assert.AreEqual("Apple comment", response.InvoiceItems[0].Comment);
+        
+        // Test PaymentItems (kifizetesek) properties
+        Assert.HasCount(1, response.PaymentItems);
+        Assert.AreEqual(new DateTime(2020, 09, 22), response.PaymentItems[0].Date);
         Assert.AreEqual("transfer", response.PaymentItems[0].Title);
         Assert.AreEqual(15, response.PaymentItems[0].Amount);
         Assert.AreEqual("comment", response.PaymentItems[0].Comment);
-        Assert.AreEqual("111167564355767895454564", response.PaymentItems[0].BankAccountNumber);
-        Assert.AreEqual(27, response.Summaries.VatRateSums.VatRate);
-        Assert.AreEqual(30000, response.Summaries.VatRateSums.Net);
-        Assert.AreEqual(8100, response.Summaries.VatRateSums.Vat);
-        Assert.AreEqual(38100, response.Summaries.VatRateSums.Gross);
-        Assert.AreEqual(30000, response.Summaries.TotalSums.Net);
-        Assert.AreEqual(8100, response.Summaries.TotalSums.Vat);
-        Assert.AreEqual(38100, response.Summaries.TotalSums.Gross);
+        Assert.AreEqual("-", response.PaymentItems[0].BankAccountNumber);
+        
+        // Test Summaries (osszegek) properties
+        Assert.AreEqual(20, response.Summaries.VatRateSums.VatRate);
+        Assert.AreEqual(464, response.Summaries.VatRateSums.Net);
+        Assert.AreEqual(93, response.Summaries.VatRateSums.Vat);
+        Assert.AreEqual(557, response.Summaries.VatRateSums.Gross);
+        Assert.AreEqual(464, response.Summaries.TotalSums.Net);
+        Assert.AreEqual(93, response.Summaries.TotalSums.Vat);
+        Assert.AreEqual(557, response.Summaries.TotalSums.Gross);
     }
     
     [TestMethod]
@@ -99,9 +143,7 @@ public class InvoiceTest
         Assert.AreEqual(request.Header.IssueDate.Date, getInvoiceResponse.InvoiceHeader.IssueDate.Date);
         Assert.AreEqual(request.Header.Language, getInvoiceResponse.InvoiceHeader.Language);
         Assert.AreEqual(request.Header.PaymentType, getInvoiceResponse.InvoiceHeader.PaymentType);
-        // TODO: InvoiceTemplate is not returned by the API yet
-        //Assert.AreEqual(request.Header.InvoiceTemplate, getInvoiceResponse.InvoiceHeader.InvoiceTemplate);
-        Assert.AreEqual(getInvoiceResponse.InvoiceHeader.InvoiceTemplate, null);
+        Assert.IsNull(getInvoiceResponse.InvoiceHeader.InvoiceTemplate);
         Assert.AreEqual(request.Customer.Name, getInvoiceResponse.Customer.Name);
         Assert.AreEqual(request.Customer.CustomerAddress.Country, getInvoiceResponse.Customer.CustomerAddress.Country);
         Assert.AreEqual(request.Customer.CustomerAddress.PostalCode, getInvoiceResponse.Customer.CustomerAddress.PostalCode);
@@ -110,7 +152,7 @@ public class InvoiceTest
         Assert.AreEqual(request.Customer.EmailAddress, getInvoiceResponse.Customer.EmailAddress);
         Assert.AreEqual(request.Customer.Identification, getInvoiceResponse.Customer.Identification);
         Assert.AreEqual(request.Customer.TaxNumber, getInvoiceResponse.Customer.TaxNumber);
-        Assert.AreEqual(request.Items.Count, getInvoiceResponse.InvoiceItems.Count);
+        Assert.HasCount(request.Items.Count, getInvoiceResponse.InvoiceItems);
         for (int i = 0; i < request.Items.Count; ++i)
         {
             Assert.AreEqual(request.Items[i].GrossAmount, getInvoiceResponse.InvoiceItems[i].GrossAmount);
