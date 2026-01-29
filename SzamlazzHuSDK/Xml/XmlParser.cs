@@ -147,7 +147,7 @@ public static class XmlParser
             CustomerAddress = ParseAddress(node["cim"]),
             EmailAddress = GetString(node, "email"),
             TaxNumber = GetString(node, "adoszam"),
-            EuTaxNumber = GetString(node, "adoszamEU")
+            EuTaxNumber = GetString(node, "adoszameu")
         };
     }
 
@@ -365,7 +365,7 @@ public static class XmlParser
     }
     private static decimal GetDecimal(XmlNode doc, string tagName)
     {
-        decimal.TryParse(GetString(doc, tagName), out decimal value);
+        decimal.TryParse(GetString(doc, tagName), NumberStyles.Number, CultureInfo.InvariantCulture, out decimal value);
         return value;
     }
 
